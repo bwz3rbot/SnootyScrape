@@ -1,5 +1,4 @@
 // Modules
-const snoo = require('./service/requests.js')
 const auth = require('./config/snoo-config');
 const Snoostorm = auth.Snoostorm;
 const snoowrap = auth.snoowrap;
