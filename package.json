@@ -1,0 +1,31 @@
+{
+  "name": "snootyscrape",
+  "version": "1.0.0",
+  "description": "Snooty Scrape For Reddit",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/web-temps/SnootyScrape.git"
+  },
+  "keywords": [
+    "Reddit",
+    "Scrape",
+    "Bot",
+    "JavaScript",
+    "Snoowrap"
+  ],
+  "author": "JDev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/web-temps/SnootyScrape/issues"
+  },
+  "homepage": "https://github.com/web-temps/SnootyScrape#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "snoostorm": "^1.5.0",
+    "snoowrap": "^1.21.0"
+  }
+}

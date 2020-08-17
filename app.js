@@ -27,7 +27,7 @@ snoowrap.config({
 })
 
 // Modules
-let myModule = require('./requests.js')
+let rq = require('./requests.js')
 
 
-myModule.stormUnreads(Snoostorm, snoowrap)
+rq.stormUnreads(Snoostorm, snoowrap)
