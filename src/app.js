@@ -5,17 +5,15 @@
 
 
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
-const auth = require('./config/snoo-config');
-const Snoostorm = auth.Snoostorm;
-const snoowrap = auth.snoowrap;
-const Snoowrap = auth.Snoowrap;
+require('./config/snoo-config');
+
 
 // Get List of Available Services
 const Services = require('./service/_Services').get
 
 
-// Choose a Service, then a function, then pass in the dependencies for that function.
-// Et voilà - You have your data!
+// Choose a Service, then a function... Et voilà - You have your data!
 
 
-Services.requests.stormUnreads();
+Services.user.getUser('Bwz3r');
+
