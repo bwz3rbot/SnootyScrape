@@ -1,8 +1,8 @@
-// App Config File
+// Configuration File for Snoowrap and Snoostorm
+
 require('dotenv').config({
     path: "./snooty.env"
 });
-// Snoo-Requires
 const Snoowrap = require('snoowrap');
 const Snoostorm = require('snoostorm');
 

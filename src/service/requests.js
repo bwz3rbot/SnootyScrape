@@ -1,3 +1,7 @@
+// This file will be seperated into microservices
+
+
+
 // List of Subreddits
 const subreddits = {
     TEST: "Bwz3rBot",
