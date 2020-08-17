@@ -1,0 +1,8 @@
+USER_AGENT=''
+CLIENT_ID=''
+CLIENT_SECRET=''
+REDDIT_USER=''
+REDDIT_PASS=''
+
+# https://www.reddit.com/prefs/apps/
+# https://blog.syntonic.io/2017/07/07/reddit-bot-nodejs-example/

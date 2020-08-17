@@ -26,8 +26,6 @@ snoowrap.config({
     debug: true
 })
 
-// Modules
-let rq = require('./requests.js')
-
-
-rq.stormUnreads(Snoostorm, snoowrap)
+exports.Snoowrap = Snoowrap;
+exports.Snoostorm = Snoostorm;
+exports.snoowrap = snoowrap;
