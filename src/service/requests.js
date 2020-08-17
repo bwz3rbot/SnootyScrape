@@ -1,15 +1,15 @@
 // This file will be seperated into microservices
+const constants = require('../common/constants')
+const dep = require('../config/snoo-config')
+const snoowrap = dep.snoowrap
+const Snoostorm = dep.Snoostorm
+
+
+const REPLY = constants.REPLY;
+const SUB = constants.SUB;
 
 
 
-// List of Subreddits
-const subreddits = {
-    TEST: "Bwz3rBot",
-    ALL: "All",
-    DANKMEMES: "dankmemes"
-}
-const SUB = subreddits.TEST
-const reply = "https://www.youtube.com/watch?v=Tt7bzxurJ1I  \n\n This has been an automated reply from your friendly neighborhood __StickRollBot__!  \n\n You can call me in r/dankmemes by saying *u/stickRollBot*"
 
 // Keyword Response Function
 let commentKeyAutoReply = function () {
@@ -39,7 +39,7 @@ let commentKeyAutoReply = function () {
 
             comment.upvote();
             console.log("post upvoted. sending reply")
-            comment.reply(reply);
+            comment.reply(REPLY);
             console.log("reply sent incrementing count")
             num++;
         }
@@ -51,8 +51,9 @@ let commentKeyAutoReply = function () {
 
 
 // Inbox Mention Response Function
-let checkForUMentions = function (Snoostorm, snoowrap) {
+let checkForUMentions = function () {
     const inbox = new Snoostorm.InboxStream(snoowrap)
+
     console.log(`SCRAPING INBOX ... `)
     inbox.on("item", (comment) => {
         if (comment.body === `u/${process.env.REDDIT_USER}`) {
@@ -67,7 +68,7 @@ let checkForUMentions = function (Snoostorm, snoowrap) {
 
 
             console.log(`comment found from u/${author} @ ${time}`)
-
+            console.log(`constants test :: ${SUB}`)
             console.log(comment)
 
 
@@ -77,7 +78,7 @@ let checkForUMentions = function (Snoostorm, snoowrap) {
 
 // View Raw Inbox Without Snoostorm Stream
 let data = []
-let viewInbox = async function (snoowrap) {
+let viewInbox = async function () {
     console.log("INSIDE OF THE VIEW INBOX FUNCTION")
 
     const inbox = await snoowrap.getInbox();
@@ -105,7 +106,7 @@ let replyToNewItems = function () {
 
 }
 
-let stormUnreads = function (Snoostorm, snoowrap) {
+let stormUnreads = function () {
     let idList = []
     const inbox = new Snoostorm.InboxStream(snoowrap)
 

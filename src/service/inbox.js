@@ -1,7 +1,16 @@
-// Inbox Service
+const dependencies = require('../config/snoo-config')
+const snoowrap = dependencies.snoowrap;
 
-let testFunc = function () {
-    console.log("test function")
+
+let scrapeInbox = async function(){
+    console.log("inside of scrapeInbox() .....")
+    const inbox = await snoowrap.getInbox();
+    inbox.forEach((item) => {
+        if (item.body === `u/${process.env.REDDIT_USER}`){
+            console.log(item)
+            
+
+        }
+    })
 }
-
-exports.testFunc = testFunc
+exports.scrapeInbox = scrapeInbox
