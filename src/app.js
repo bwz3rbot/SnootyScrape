@@ -5,7 +5,7 @@
 
 
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
-require('./config/snoo-config');
+const s =require('./config/snoo-config');
 
 
 
@@ -15,4 +15,6 @@ const Services = require('./service/_Services').get
 
 // Choose a Service, then a function... Et voilà - You have your data!
 
-Services.user.saveUserData('Bwz3r');
+// Services.user.saveUserData('Finbacks');
+
+s.getAuthUrl()

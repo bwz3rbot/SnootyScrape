@@ -105,3 +105,4 @@ dist
 
 # save all scraped data here
 /secure
+/src/config/makeId.js

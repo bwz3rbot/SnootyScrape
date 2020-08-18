@@ -7,6 +7,8 @@ require('dotenv').config({
     path: "./snooty.env"
 });
 
+const secureIdGen = require('./makeId')
+
 // Requiring Snoowrap and Snoostorm
 const Snoowrap = require('snoowrap');
 const Snoostorm = require('snoostorm');
@@ -32,5 +34,31 @@ snoowrap.config({
     debug: true
 })
 
-exports.Snoostorm = Snoostorm;
-exports.snoowrap = snoowrap;
+
+
+// Mod-Bot Scope List
+// A full list of available scopes is stored in 'src/config/scopes.json'
+const SCOPE = [
+    'identity', 'wikiread', 'wikiedit'
+]
+const getAuthUrl = function () {
+
+    console.log("getAuthUrl()")
+    let grantType = Snoowrap.getAuthUrl({
+        clientId: process.env.CLIENT_ID,
+        scope: SCOPE,
+        redirectUri: 'https://www.google.com',
+        permanent: true,
+        state: secureIdGen.makeid(5)
+
+    })
+    console.log(`after getting granttype \n ${grantType}`)
+}
+
+module.exports = {
+    Snoowrap: snoowrap,
+    Snoostorm: Snoostorm,
+    snoowrap: snoowrap,
+    getAuthUrl: getAuthUrl
+
+}
