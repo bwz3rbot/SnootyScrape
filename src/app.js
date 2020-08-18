@@ -8,12 +8,11 @@
 require('./config/snoo-config');
 
 
+
 // Get List of Available Services
 const Services = require('./service/_Services').get
 
 
 // Choose a Service, then a function... Et voilà - You have your data!
 
-
-Services.user.getUser('Bwz3r');
-
+Services.user.saveUserData('Bwz3r');

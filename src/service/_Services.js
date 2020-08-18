@@ -3,7 +3,6 @@ const requests = require('./requests')
 const user = require('./user')
 const jsonFileExporter = require('../utils/jsonFileExporter')
 
-
 // A list of all the services
 const get = {
     inbox: inbox,
@@ -11,7 +10,9 @@ const get = {
     user: user,
     utils: {
         jsonFileExporter: jsonFileExporter
+
     }
+
 
 }
 

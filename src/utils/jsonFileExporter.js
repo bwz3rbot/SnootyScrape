@@ -5,7 +5,8 @@ const writeToFile = function (filename, item) {
     console.log("typeof filename = " + typeof filename)
     console.log("typeof item = " + typeof item)
 
-    fs.writeFile(filename, item, (err) => {
+    const prepend = './secure/'
+    fs.writeFile(prepend+filename, item, (err) => {
         if (err) throw err;
         console.log("file saved")
     } )
