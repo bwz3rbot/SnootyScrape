@@ -2,8 +2,11 @@
 // Can Get User
 const snoowrap = require('../config/snoo-config').snoowrap
 const jsonExporter = require('../utils/jsonFileExporter')
-const { RedditUser } = require('snoowrap')
+const {
+    RedditUser
+} = require('snoowrap')
 const jsonFileExporter = require('../utils/jsonFileExporter')
+const userDTO = require('../data/userDTO')
 
 
 
@@ -26,7 +29,7 @@ const getUserOverview = function (username) {
             console.log("user.getOverview returns overview with typeof = " + typeof overview)
 
 
-           
+
             jsonExporter.writeToFile(`u_${username}-Overview.json`, JSON.stringify(overview))
 
 
@@ -38,12 +41,23 @@ const getUserOverview = function (username) {
 
 }
 
-const saveGildedContent = function(username){
+const saveGildedContent = function (username) {
     return snoowrap.getUser(username).getGildedContent().then(content => {
-        jsonFileExporter.stringifyThenSave(`u_${username}.gildedContent.json`,content)
+        jsonFileExporter.stringifyThenSave(`u_${username}.gildedContent.json`, content)
     })
 }
 
+
+
+const mapUsertoDB = function (username) {
+    
+    snoowrap.getUser(username).fetch().then(user => {
+        userDTO.saveUserToDB(user)
+    
+        // userDTO.saveUserToDB(user)
+    })
+
+}
 
 
 
@@ -51,5 +65,6 @@ module.exports = {
     saveUserData: saveUserData,
     getUser: getUser,
     getUserOverview: getUserOverview,
-    saveGildedContent: saveGildedContent
+    saveGildedContent: saveGildedContent,
+    mapUsertoDB: mapUsertoDB
 }

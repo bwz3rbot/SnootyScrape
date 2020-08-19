@@ -4,7 +4,7 @@
 // Load environment variables from .env file
 // These variables contain the credentials for the bot
 require('dotenv').config({
-    path: "./snooty.env"
+    path: "./bwz3rbot.env"
 });
 
 const secureIdGen = require('./makeId')
@@ -44,7 +44,7 @@ const SCOPE = [
 const getAuthUrl = function () {
 
     console.log("getAuthUrl()")
-    let grantType = Snoowrap.getAuthUrl({
+    let authenticationUrl = Snoowrap.getAuthUrl({
         clientId: process.env.CLIENT_ID,
         scope: SCOPE,
         redirectUri: 'https://www.google.com',
@@ -52,13 +52,15 @@ const getAuthUrl = function () {
         state: secureIdGen.makeid(5)
 
     })
-    console.log(`after getting granttype \n ${grantType}`)
+    // https://not-an-aardvark.github.io/snoowrap/snoowrap.html#.fromAuthCode__anchor
+    // visit ^this link^ to complete this function if deciding to make a browser app.
+
 }
+
+
 
 module.exports = {
     Snoowrap: snoowrap,
     Snoostorm: Snoostorm,
-    snoowrap: snoowrap,
-    getAuthUrl: getAuthUrl
-
+    snoowrap: snoowrap
 }
