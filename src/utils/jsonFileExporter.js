@@ -1,4 +1,5 @@
 const fs = require('fs')
+
 const prepend = './secure/'
 const writeToFile = function (filename, item) {
 
@@ -6,6 +7,7 @@ const writeToFile = function (filename, item) {
     if (typeof item === Object) {
         console.log("typeof item received === Object... stringifying item")
         item = JSON.stringify(item)
+        console.log('file saved')
     }
 
 
@@ -17,7 +19,7 @@ const writeToFile = function (filename, item) {
 
 const stringifyThenSave = function (filename, item) {
     let str = JSON.stringify(item);
-    fs.writeFile(prepend + filename +'.json', str, (err) => {
+    fs.writeFile(prepend + filename + '.json', str, (err) => {
         if (err) throw err;
         console.log("file saved")
     })

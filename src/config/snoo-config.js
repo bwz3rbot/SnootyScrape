@@ -1,12 +1,7 @@
 // Configuration File for Snoowrap and Snoostorm
 
-
-// Load environment variables from .env file
-// These variables contain the credentials for the bot
-require('dotenv').config({
-    path: "./snooty.env"
-});
-
+// ID generator for getAuthUrl()
+// *not required for scraping on the bot account*
 const secureIdGen = require('./makeId')
 
 // Requiring Snoowrap and Snoostorm

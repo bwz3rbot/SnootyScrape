@@ -1,5 +1,5 @@
-const inbox = require('./inbox')
-const requests = require('./requests')
+const inbox = require('./inboxService')
+const requests = require('./requestsService')
 const user = require('./userService')
 const jsonFileExporter = require('../utils/jsonFileExporter')
 const subreddit = require('./subredditService')
