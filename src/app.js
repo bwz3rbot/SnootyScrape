@@ -3,8 +3,7 @@
 // It then grabs a list of services from the 'service/_Services.js' file.
 // These micro-services contain functions that allow a user to query, manipulate, and save externally [the data from the Reddit API].
 
-// Force only one instance of Snoopendencies to be created
-"use strict"
+
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
 require('./config/snoo-config');
 
