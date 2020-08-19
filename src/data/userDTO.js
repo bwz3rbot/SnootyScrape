@@ -151,11 +151,8 @@ let saveUserToDB = function (
     hide_from_robots,
     created,
     id) {
-    console.log("SAVING USER TO DB...")
-    console.log(`TYPEOF NAME =${typeof name}`)
-    console.log(`TYPEOF PREF_NIGHTMODE =${typeof prefer_nightmode}`)
 
-
+    console.log("SAVING USER")
 
     User.create({
         name: name,

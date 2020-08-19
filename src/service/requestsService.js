@@ -1,4 +1,6 @@
 // This file will be seperated into microservices
+
+// edit: much of this file is not being used. I'll have to go back through later and delete more.
 const constants = require('../common/constants')
 const dep = require('../config/snoo-config')
 const snoowrap = dep.snoowrap
