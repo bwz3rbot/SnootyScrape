@@ -19,11 +19,8 @@ require('./config/db-config')
 // Get List of Available Services
 const Services = require('./service/_Services').get
 
-Services.user.mapUsertoDB('Bwz3r')
-
-
 
 // Choose a Service, then a function... Et voilà - You have your data!
 
-// Services.user.saveUserData('Finbacks');
+Services.user.mapUsertoDB('Bwz3r');
 

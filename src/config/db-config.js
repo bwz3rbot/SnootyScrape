@@ -1,5 +1,5 @@
 // Mongoose DB Configuration
-
+console.log("CONFIGURING MONGOOSE")
 const mongoose = require('mongoose')
 const url = process.env.DB_URL
 console.log(`connection to url: ${url}`)

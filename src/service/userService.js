@@ -47,14 +47,73 @@ const saveGildedContent = function (username) {
     })
 }
 
-
+// const mapUsertoDB = function(username){
+//     snoowrap.getUser(username).fetch().then(user => {
+//         console.log(typeof user.name)
+//     })
+// }
 
 const mapUsertoDB = function (username) {
-    
+
     snoowrap.getUser(username).fetch().then(user => {
-        userDTO.saveUserToDB(user)
-    
-        // userDTO.saveUserToDB(user)
+
+
+        userDTO.saveUserToDB(
+
+            user.name,
+
+            user.subreddit.display_name.previous_names,
+
+            user.subreddit.display_name.public_description,
+
+            user.subreddit.display_name.icon_img,
+
+            user.pref_geopopular,
+
+            user.coins,
+
+            user.awardee_karma,
+
+            user.awarder_karma,
+
+            user.has_gold_subscription,
+
+            user.gold_creddits,
+
+            user.gold_expiration,
+
+            user.is_gold,
+
+            user.has_subscribed_to_premium,
+
+            user.has_paypal_subscription,
+
+            user.is_sponsor,
+
+
+            user.subreddit.display_name.subscribers,
+
+            user.num_friends,
+
+            user.comment_karma,
+
+            user.link_karma,
+
+            user.total_karma,
+
+            user.pref_nightmode,
+
+            user.is_mod,
+
+            user.over_18,
+
+            user.hide_from_robots,
+
+            user.created,
+
+            user.id
+
+        )
     })
 
 }

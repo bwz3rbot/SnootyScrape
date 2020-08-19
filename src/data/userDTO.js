@@ -52,6 +52,15 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    has_subscribed_to_premium: {
+        type: Boolean,
+        default: false
+    },
+
+    has_paypal_subscription: {
+        type: Boolean,
+        default: false
+    },
 
     is_sponsor: {
         type: Boolean,
@@ -83,7 +92,7 @@ const userSchema = new mongoose.Schema({
 
     prefer_nightmode: {
         type: Boolean,
-        default: 0
+        default: false
     },
     is_mod: {
         type: Boolean,
@@ -98,7 +107,7 @@ const userSchema = new mongoose.Schema({
         default: 0
     },
     created: {
-        type: Date,
+        type: Number,
         default: Date.now
     },
     id: {
@@ -128,6 +137,8 @@ let saveUserToDB = function (
     gold_credits,
     gold_expiration,
     is_gold,
+    has_subscribed_to_premium,
+    has_paypal_subscription,
     is_sponsor,
     subscribers,
     num_friends,
@@ -140,6 +151,9 @@ let saveUserToDB = function (
     hide_from_robots,
     created,
     id) {
+    console.log("SAVING USER TO DB...")
+    console.log(`TYPEOF NAME =${typeof name}`)
+    console.log(`TYPEOF PREF_NIGHTMODE =${typeof prefer_nightmode}`)
 
 
 
@@ -151,9 +165,27 @@ let saveUserToDB = function (
         geoPopular: geoPopular,
         coins: coins,
         awardee_karma: awardee_karma,
-        awarder_karma:awarder_karma,
-        has_gold_subscription:has_gold_subscription,
-        
+        awarder_karma: awarder_karma,
+        has_gold_subscription: has_gold_subscription,
+        gold_credits: gold_credits,
+        gold_expiration: gold_expiration,
+        is_gold: is_gold,
+        has_subscribed_to_premium: has_subscribed_to_premium,
+        has_paypal_subscription: has_paypal_subscription,
+        is_sponsor: is_sponsor,
+        subscribers: subscribers,
+        num_friends: num_friends,
+        comment_karma: comment_karma,
+        link_karma: link_karma,
+        total_karma: total_karma,
+        prefer_nightmode: prefer_nightmode,
+        is_mod: is_mod,
+        over_18: over_18,
+        hide_from_robots: hide_from_robots,
+        created: created,
+        id: id
+
+
 
     }, function (err, obj) {
         if (err) {
