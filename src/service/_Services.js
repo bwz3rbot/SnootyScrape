@@ -1,8 +1,8 @@
 const inbox = require('./inboxService')
 const requests = require('./requestsService')
 const user = require('./userService')
-const jsonFileExporter = require('../utils/jsonFileExporter')
 const subreddit = require('./subredditService')
+const submission = require('./submissionService')
 
 // A list of all the services
 const get = {
@@ -10,12 +10,7 @@ const get = {
     requests: requests,
     user: user,
     subreddit: subreddit,
-    utils: {
-        jsonFileExporter: jsonFileExporter
-
-    }
-
-
+    submission: submission,
 }
 
 exports.get = get;
