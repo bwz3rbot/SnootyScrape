@@ -15,7 +15,7 @@ const saveUserData = function (username) {
     return snoowrap.getUser(username).fetch().then(userInfo => {
         console.log("writing to file user data, " + userInfo)
         let userInf = JSON.stringify(userInfo)
-        jsonExporter.writeToFile(`u_${username}.json`, userInf)
+        jsonExporter.writeToFile(`u_${username}`, userInf)
     })
 }
 
@@ -30,7 +30,7 @@ const getUserOverview = function (username) {
 
 
 
-            jsonExporter.writeToFile(`u_${username}-Overview.json`, JSON.stringify(overview))
+            jsonExporter.writeToFile(`u_${username}-Overview`, JSON.stringify(overview))
 
 
 
@@ -43,7 +43,7 @@ const getUserOverview = function (username) {
 
 const saveGildedContent = function (username) {
     return snoowrap.getUser(username).getGildedContent().then(content => {
-        jsonFileExporter.stringifyThenSave(`u_${username}.gildedContent.json`, content)
+        jsonFileExporter.stringifyThenSave(`u_${username}.gildedContent`, content)
     })
 }
 

@@ -9,7 +9,7 @@ const writeToFile = function (filename, item) {
     }
 
 
-    fs.writeFile(prepend + filename, item, (err) => {
+    fs.writeFile(prepend + filename + '.json', item, (err) => {
         if (err) throw err;
         console.log("file saved")
     })
@@ -17,7 +17,7 @@ const writeToFile = function (filename, item) {
 
 const stringifyThenSave = function (filename, item) {
     let str = JSON.stringify(item);
-    fs.writeFile(prepend + filename, str, (err) => {
+    fs.writeFile(prepend + filename +'.json', str, (err) => {
         if (err) throw err;
         console.log("file saved")
     })

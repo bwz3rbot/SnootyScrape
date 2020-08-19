@@ -8,13 +8,6 @@
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
 require('./config/snoo-config');
 
-// Database Initialization
-require('./config/db-config')
-
-
-
-
-
 
 // Get List of Available Services
 const Services = require('./service/_Services').get
@@ -22,5 +15,4 @@ const Services = require('./service/_Services').get
 
 // Choose a Service, then a function... Et voilà - You have your data!
 
-Services.user.mapUsertoDB('Bwz3r');
-
+Services.subreddit.stormSub('All');

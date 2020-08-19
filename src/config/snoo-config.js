@@ -4,14 +4,14 @@
 // Load environment variables from .env file
 // These variables contain the credentials for the bot
 require('dotenv').config({
-    path: "./bwz3rbot.env"
+    path: "./snooty.env"
 });
 
 const secureIdGen = require('./makeId')
 
 // Requiring Snoowrap and Snoostorm
 const Snoowrap = require('snoowrap');
-const Snoostorm = require('snoostorm');
+
 
 
 
@@ -61,6 +61,5 @@ const getAuthUrl = function () {
 
 module.exports = {
     Snoowrap: snoowrap,
-    Snoostorm: Snoostorm,
     snoowrap: snoowrap
 }
