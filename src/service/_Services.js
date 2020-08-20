@@ -8,12 +8,19 @@ const comments = require('./commentStormService')
 
 // A list of all the services
 const get = {
-    inbox: inbox,
+
+    // WORKING
+    comments: comments,
     user: user,
+    //
+
+
+    // TESTING/TODO
+    inbox: inbox,
     subreddit: subreddit,
     submission: submission,
     pushshift: pushshift,
-    comments: comments,
+
 
 }
 

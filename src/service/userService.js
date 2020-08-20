@@ -1,54 +1,41 @@
 // User Micorservice
-// Can Get User
+// Gets information about a specific user and logs to 'users' collection of db
+
 const snoowrap = require('../config/snoo-config').snoowrap
-const jsonFileExporter = require('../utils/jsonFileExporter')
 const userDTO = require('../data/userDTO')
 
+const {
+    SentimentObject
+} = require('./sentimentAnalysisService')
 
 
-const saveUserData = function (username) {
 
-    return snoowrap.getUser(username).fetch().then(userInfo => {
-        console.log("writing to file user data, " + userInfo)
-        let userInf = JSON.stringify(userInfo)
-        jsonFileExporter.writeToFile(`u_${username}`, userInf)
-    })
-}
 
+// Returns a RedditObject(user)
 const getUser = function (username) {
     return snoowrap.getUser(username)
 }
 
-const getUserOverview = function (username) {
-    snoowrap.getUser(username).fetch().then(user => {
-        user.getOverview().then(overview => {
-            console.log("user.getOverview returns overview with typeof = " + typeof overview)
+
+// Generates a list of every comment a specific user has ever made and saves to 'users' collection
+const getAllUserComments = function (username) {
+
+    getUser(username).getComments().fetchAll().then(function (comments) {
+
+        comments.forEach(comment => {
+            let newSentiment = new SentimentObject(comment, 'user');
+
+            newSentiment.analyze();
+
+            comment.save();
+        })
 
 
-
-            jsonFileExporter.writeToFile(`u_${username}-Overview`, JSON.stringify(overview))
-
-
-
-        });
-
-    })
-
-
-}
-
-const saveGildedContent = function (username) {
-    return snoowrap.getUser(username).getGildedContent().then(content => {
-        jsonFileExporter.stringifyThenSave(`u_${username}.gildedContent`, content)
     })
 }
 
-// const mapUsertoDB = function(username){
-//     snoowrap.getUser(username).fetch().then(user => {
-//         console.log(typeof user.name)
-//     })
-// }
 
+//TODO: make this function save a user to another collection when getAllUserComments() is called
 const mapUsertoDB = function (username) {
     console.log("USER SERVICE -- MAPPING USER TO DB")
 
@@ -118,9 +105,6 @@ const mapUsertoDB = function (username) {
 
 
 module.exports = {
-    saveUserData: saveUserData,
     getUser: getUser,
-    getUserOverview: getUserOverview,
-    saveGildedContent: saveGildedContent,
-    mapUsertoDB: mapUsertoDB
+    getAllUserComments: getAllUserComments
 }
