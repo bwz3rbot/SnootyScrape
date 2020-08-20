@@ -22,4 +22,4 @@ const Services = require('./service/_Services').get
 // Services.subreddit.stormSub();
 
 // Services.comments.analyzeCommentStream('Dankmemes')
-Services.comments.findCommentById('g278jqx')
+Services.comments.analyzeCommentStream('Libertarian')

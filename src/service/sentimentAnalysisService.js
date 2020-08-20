@@ -17,19 +17,17 @@ class SentimentObject {
         this.utc = RedditObject.created_utc
         this.comment_id = RedditObject.id
         this.parent_id = RedditObject.parent_id
-        console.log(`on construction... this.parent_id = ${this.parent_id}, & RedditObject.parent_id = ${RedditObject.parent_id}`)
+       
 
 
 
         // Analyzes a stream 
         this.analyze = function () {
 
-            console.log('!!!ANALYZING!!!')
-            console.log(`commentId = ${this.comment_id} and typeof = ${typeof this.comment_id}`)
 
             let result = runSentimentAnalysis(this.body)
 
-            console.log('after analysisService')
+        
 
 
 
@@ -42,7 +40,6 @@ class SentimentObject {
             this.positive = result.positive
             this.negative = result.negative
 
-            console.log(`BEFORE MAPPING..... parent_id = ${this.parent_id}`)
 
             this.mapDTO()
 
@@ -64,10 +61,7 @@ class SentimentObject {
                 positive: this.positive,
                 negative: this.negative
             })
-            console.log('mapping dto to the database >> ')
-            console.log(`this.comment_id = ${this.comment_id} & typeof = ${typeof this.comment_id}`)
-            console.log(`this.parent_id = ${this.parent_id} & typeof = ${typeof this.parent_id}`)
-            console.log(`this.comparative = ${this.comparative} & typeof = ${typeof this.comparative}`)
+           
 
         }
 
@@ -80,7 +74,6 @@ class SentimentObject {
 // Analyze a string and return a Sentiment Analysis Object
 const runSentimentAnalysis = function (str) {
 
-    console.log(`RUNNING ANALYSIS :: \n ${str}`)
 
     return sentiment.analyze(str)
 

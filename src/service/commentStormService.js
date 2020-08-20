@@ -11,16 +11,14 @@ const {
 
 // Find a comment by its ID
 const findCommentById = function (id) {
-    console.log('finding comment by id id= ' + id)
+ 
 
     
     snoowrap.getComment(id).fetch().then(function (comment) {
-        console.log('found comment with id' + id + '\n initializing new sentiment object with comment')
-
-        console.log(`parent id before starting sentiment service = ${comment.parent_id}`)
+     
 
         let newSentiment = new SentimentObject(comment);
-        console.log('analyzing the comment')
+        
         newSentiment.analyze()
   
     })
@@ -40,12 +38,11 @@ const analyzeCommentStream = function (subreddit) {
 
     comments.on('item', function (comment) {
         if (!comment.saved) {
-            console.log("CREATING SENTIMENT OBJECT")
-            let sentiment = new SentimentObject(comment);
+            let newSentiment = new SentimentObject(comment);
 
-            sentiment.analyze()
-            console.log('before map')
-            sentiment.mapDTO();
+            newSentiment.analyze();
+            
+
             // comment.save()
 
         }

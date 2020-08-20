@@ -77,9 +77,7 @@ const saveAnalysisToDB = function ({
     positive,
     negative
 }) {
-    console.log('SAVING SENTIMENT ANALYSIS TO DB')
-    console.log(`commentId = ${comment_id} and typeof = ${typeof comment_id}`)
-    console.log(`parentId = ${parent_id} and typeof = ${typeof parent_id}`)
+
 
     SentimentAnalysis.create({
         body: body,
