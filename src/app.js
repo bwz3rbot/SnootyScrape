@@ -18,7 +18,7 @@ const Services = require('./service/_Services').get
 
 
 // Choose a Service, then a function... Et voilà - You have your data!
-// Services.subreddit.stormSub();
+
 
 Services.comments.analyzeCommentStream('All')
 // Services.user.getAllUserComments('username')
