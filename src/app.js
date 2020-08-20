@@ -21,4 +21,5 @@ const Services = require('./service/_Services').get
 // Choose a Service, then a function... Et voilà - You have your data!
 // Services.subreddit.stormSub();
 
-Services.comments.analyzeCommentStream('Libertarian')
+// Services.comments.analyzeCommentStream('Dankmemes')
+Services.comments.findCommentById('g278jqx')

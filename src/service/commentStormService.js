@@ -1,5 +1,6 @@
 const dependencies = require('../config/snoo-config')
 const analysisService = require('./sentimentAnalysisService')
+const SentimentObject = analysisService.SentimentObject
 
 const snoowrap = dependencies.snoowrap
 
@@ -7,72 +8,27 @@ const {
     CommentStream
 } = require('snoostorm')
 
-const sentimentDTO = require('../data/sentimentDTO')
 
+// Find a comment by its ID
+const findCommentById = function (id) {
+    console.log('finding comment by id id= ' + id)
 
-// Sentiment DTO
-class SentimentDTO {
-    constructor(
-        body,
-        user,
-        subreddit,
-        utc
-    ) {
+    
+    snoowrap.getComment(id).fetch().then(function (comment) {
+        console.log('found comment with id' + id + '\n initializing new sentiment object with comment')
 
+        console.log(`parent id before starting sentiment service = ${comment.parent_id}`)
 
-        // These come from the comment
-        this.body = body
-        this.user = user
-        this.subreddit = subreddit
-        this.utc = utc
-
-
-        this.analyze = function () {
-            let result = analysisService.runSentimentAnalysis(this.body)
-
-            console.log('after analysisService')
-
-
-
-            this.score = result.score
-            this.comparative = result.comparative
-            console.log(`this.comparative = ${this.comparative}`)
-            this.calculation = result.calculation
-            this.tokens = result.tokens
-            this.words = result.words
-            this.positive = result.positive
-            this.negative = result.negative
-            console.log(`this.utc= ${this.utc} & typeof = ${typeof this.utc}`)
-
-        }
-
-        this.mapDTO = function () {
-            sentimentDTO.saveAnalysisToDB({
-                body: this.body,
-                user: this.user,
-                subreddit: this.subreddit,
-                utc: this.utc,
-                score: this.score,
-                comparative: this.comparative,
-                calculation: this.calculation,
-                tokens: this.tokens,
-                words: this.words,
-                positive: this.positive,
-                negative: this.negative
-            })
-
-        }
-    }
-
-
+        let newSentiment = new SentimentObject(comment);
+        console.log('analyzing the comment')
+        newSentiment.analyze()
+  
+    })
 }
 
 
 
-
-
-
-
+// Analyze a stream of comments with Snoostorm and Analysis Service
 const analyzeCommentStream = function (subreddit) {
     console.log("analyzing comment stream from subreddit: " + subreddit)
 
@@ -84,37 +40,21 @@ const analyzeCommentStream = function (subreddit) {
 
     comments.on('item', function (comment) {
         if (!comment.saved) {
-            let sentiment = new SentimentDTO();
+            console.log("CREATING SENTIMENT OBJECT")
+            let sentiment = new SentimentObject(comment);
 
-            sentiment.body = comment.body
-            sentiment.user = comment.author.name
-            sentiment.subreddit = comment.subreddit.display_name
-
-
-            sentiment.utc = comment.created_utc.toString()
-       
-            console.log('before analyze')
-
-            sentiment.analyze();
-
+            sentiment.analyze()
             console.log('before map')
             sentiment.mapDTO();
             // comment.save()
 
-
-
-
         }
-
-
-
 
     })
 
-
 }
 
-
 module.exports = {
-    analyzeCommentStream: analyzeCommentStream
+    analyzeCommentStream: analyzeCommentStream,
+    findCommentById: findCommentById
 }

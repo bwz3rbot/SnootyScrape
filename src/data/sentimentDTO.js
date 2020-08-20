@@ -18,9 +18,16 @@ const analysisSchema = new mongoose.Schema({
         default: 'r/'
     },
     utc: {
-        type: String,
-        default: ""
+        type: Number
 
+
+    },
+    comment_id: {
+        type: String
+
+    },
+    parent_id: {
+        type: String
     },
 
     score: {
@@ -28,8 +35,8 @@ const analysisSchema = new mongoose.Schema({
         default: 0
     },
     comparative: {
-        type: String,
-        default: ""
+        type: Number,
+        default: 0
     },
     calculation: {
         type: Array,
@@ -59,8 +66,11 @@ const saveAnalysisToDB = function ({
     body,
     user,
     subreddit,
+    utc,
+    comment_id,
+    parent_id,
     score,
-    comparitive,
+    comparative,
     calculation,
     tokens,
     words,
@@ -68,13 +78,18 @@ const saveAnalysisToDB = function ({
     negative
 }) {
     console.log('SAVING SENTIMENT ANALYSIS TO DB')
+    console.log(`commentId = ${comment_id} and typeof = ${typeof comment_id}`)
+    console.log(`parentId = ${parent_id} and typeof = ${typeof parent_id}`)
 
     SentimentAnalysis.create({
         body: body,
         user: user,
         subreddit: subreddit,
+        utc: utc,
+        comment_id: comment_id,
+        parent_id: parent_id,
         score: score,
-        comparitive: comparitive,
+        comparative: comparative,
         calculation: calculation,
         tokens: tokens,
         words: words,
