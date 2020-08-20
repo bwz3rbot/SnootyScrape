@@ -2,11 +2,7 @@
 const user = require('./userService')
 const comments = require('./commentStormService')
 
-
-
-
-
-// A list of all the services
+// A list of services available to the main
 const get = {
 
     // WORKING
