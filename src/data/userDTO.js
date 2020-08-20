@@ -122,9 +122,12 @@ const userSchema = new mongoose.Schema({
 
 
 })
+
+
+
 const User = mongoose.model("Dataset", userSchema)
 
-let saveUserToDB = function (
+const saveUserToDB = function (
     name,
     previous_names,
     public_description,
@@ -152,7 +155,7 @@ let saveUserToDB = function (
     created,
     id) {
 
-    console.log("SAVING USER")
+    console.log("SAVING USER TO DB")
 
     User.create({
         name: name,

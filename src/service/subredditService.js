@@ -1,6 +1,7 @@
 // Subreddit Microservice
 const jsonFileExporter = require('../utils/jsonFileExporter')
 const userService = require('./userService')
+const sentimentDTO = require('../data/sentimentDTO')
 
 // Include Snoowrap, Snoostorm, then initiate the Snoostorm client by wrapping a new instance around the existing configured snoowrap.
 
@@ -24,21 +25,27 @@ const stormSub = function (subreddit) {
 
     const stream = new Snoostorm.SubmissionStream(snoowrap, {
         subreddit: subreddit,
-        results: 25
+        limit: 10,
+        pollTime: 2000
     })
 
     stream.on('item', item => {
-        console.log('item found.... retreiving name')
+
+        console.log(item)
+       
+
+
         // check if we've seen this one...
-        if (item.saved === false) {
+        // if (item.saved === false) {
+            
 
 
-            userService.mapUsertoDB(item.author.name)
+        //     // userService.mapUsertoDB(item.author.name)
 
-            item.save()
+        //     item.save()
 
 
-        }
+        // }
 
 
     })

@@ -21,12 +21,4 @@ const Services = require('./service/_Services').get
 // Choose a Service, then a function... Et voilà - You have your data!
 // Services.subreddit.stormSub();
 
-Services.submission.createPost({
-    type: 'link',
-    subreddit: 'Bwz3rBot',
-    title: 'a cool title for my link post',
-    text: 'some text',
-    resubmit: true,
-    flair: true,
-    url: null
-})
+Services.comments.analyzeCommentStream('republicans')

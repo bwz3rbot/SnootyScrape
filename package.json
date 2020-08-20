@@ -24,8 +24,10 @@
   },
   "homepage": "https://github.com/web-temps/SnootyScrape#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "mongoose": "^5.10.0",
+    "sentiment": "^5.0.2",
     "snoostorm": "^1.5.0",
     "snoowrap": "^1.21.0"
   }
