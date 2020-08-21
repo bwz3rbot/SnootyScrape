@@ -86,7 +86,7 @@ Now that you have your authorization codes, navigate to the 'pw.envEXAMPLE' file
 
 Once in the file, fill in the fields below.
 
-    SnoodlyCaps>pw.envEXAMPLE
+    SnootyScrape/pw.envEXAMPLE
 ```
 USER_AGENT=''
 CLIENT_ID=''
@@ -97,7 +97,7 @@ DB_URL=''
 ```
 Now remove 'EXAMPLE' from the end of the file name.
 
-    (E.g. 'SnoodlyCaps/pw.envExample' > 'SnoodlyCaps/pw.env')
+    (E.g. 'SnootyScrape/pw.envExample' > 'SnootyScrape/pw.env')
 
 Now that you'ved filled in your account details, you need to run this command to install the required dependencies the bot needs to run.
 
