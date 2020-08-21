@@ -63,7 +63,6 @@ const analyzeUser = function (username) {
 // ---------------------------------------------------------------------------
 // Run one of these functions at a time below this line:
 
-analyzeUser('bwz3r')
 
 
 // ---------------------------------------------------------------------------
