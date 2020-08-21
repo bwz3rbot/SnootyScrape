@@ -68,6 +68,76 @@ const analysisSchema = new mongoose.Schema({
 const SentimentAnalysis = mongoose.model("Study", analysisSchema)
 const UserAnalysis = mongoose.model("User", analysisSchema)
 
+// const saveAnalysisToDB = function ({
+//     dataset,
+//     body,
+//     user,
+//     subreddit,
+//     utc,
+//     comment_id,
+//     parent_id,
+//     votes,
+//     score,
+//     comparative,
+//     calculation,
+//     tokens,
+//     words,
+//     positive,
+//     negative
+// }) {
+
+//     const NewAnalysis = mongoose.model(dataset,analysisSchema)
+
+//     if (dataset === 'user') {
+
+//         NewAnalysis.create({
+//             body: body,
+//             user: user,
+//             subreddit: subreddit,
+//             utc: utc,
+//             comment_id: comment_id,
+//             parent_id: parent_id,
+//             votes: votes,
+//             score: score,
+//             comparative: comparative,
+//             calculation: calculation,
+//             tokens: tokens,
+//             words: words,
+//             positive: positive,
+//             negative: negative
+//         }, function (err) {
+//             if (err) console.log(err)
+//             else console.log('saved to db!')
+//         })
+//     }
+
+//     if (dataset === 'subreddit') {
+
+//         SentimentAnalysis.create({
+//             body: body,
+//             user: user,
+//             subreddit: subreddit,
+//             utc: utc,
+//             comment_id: comment_id,
+//             parent_id: parent_id,
+//             votes: votes,
+//             score: score,
+//             comparative: comparative,
+//             calculation: calculation,
+//             tokens: tokens,
+//             words: words,
+//             positive: positive,
+//             negative: negative
+//         }, function (err) {
+//             if (err) console.log(err)
+//             else console.log('saved to db!')
+//         })
+//     }
+
+
+// }
+
+
 const saveAnalysisToDB = function ({
     dataset,
     body,
@@ -86,9 +156,10 @@ const saveAnalysisToDB = function ({
     negative
 }) {
 
-    if (dataset === 'user') {
+    const NewAnalysis = mongoose.model(dataset+"_listing",analysisSchema)
 
-        UserAnalysis.create({
+   
+        NewAnalysis.create({
             body: body,
             user: user,
             subreddit: subreddit,
@@ -107,34 +178,10 @@ const saveAnalysisToDB = function ({
             if (err) console.log(err)
             else console.log('saved to db!')
         })
-    }
-
-    if (dataset === 'subreddit') {
-
-        SentimentAnalysis.create({
-            body: body,
-            user: user,
-            subreddit: subreddit,
-            utc: utc,
-            comment_id: comment_id,
-            parent_id: parent_id,
-            votes: votes,
-            score: score,
-            comparative: comparative,
-            calculation: calculation,
-            tokens: tokens,
-            words: words,
-            positive: positive,
-            negative: negative
-        }, function (err) {
-            if (err) console.log(err)
-            else console.log('saved to db!')
-        })
-    }
+    
 
 
 }
-
 
 const saveUserAnalysisToDB = function ({
     body,
