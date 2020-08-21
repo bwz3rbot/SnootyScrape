@@ -41,53 +41,50 @@ This bot was created for the purpose of researching the current opinion on a giv
 
 ## 🎥 Demo / Working <a name = "demo"></a>
 
-![Working]
->Here's a demo of it in action: <a href= 'https://www.youtube.com/watch?v=kq3zs70CQVU'>https://www.youtube.com/watch?v=kq3zs70CQVU</a>
+Here is a video of it scraping and persisting data: <a href= 'https://www.youtube.com/watch?v=kq3zs70CQVU'>https://www.youtube.com/watch?v=kq3zs70CQVU</a><br>
+As you can see, there are many interesting things you could do with this!
 
-## 💭 How it works <a name = "working"></>
 
-The bot first extracts the word from the comment and then fetches word definitions, part of speech, example and source from the Oxford Dictionary API.
+## 💭 How it works <a name = "working"></a>
 
-If the word does not exist in the Oxford Dictionary, the Oxford API then returns a 404 response upon which the bot then tries to fetch results form the Urban Dictionary API.
+The bot works by allowing its user to input a few paramaters which it then uses to query Pushshift data.
 
-The bot uses the Pushshift API to fetch comments, PRAW module to reply to comments and Heroku as a server.
+It takes the data it finds from pushshift, then - through the magic of Sentiment Analysis Technology - it spits back out data reguarding users opinions on a topic.
 
-The entire bot is written in Python 3.6
+This data is persisted to a NoSQL DB for easy catagorization, analyzation, and reuse.
+
+SnootyScraper also has the ability to scour a specific user's entire comment history to gain valuable insight into your market.
+
 
 ## 🎈 Usage <a name = "usage"></a>
 
-To use the bot, type:
+SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and give it a name to output the dataset to.
 
-```
-!dict word
-```
+You can then view your database and organize how you wish.
 
-The first part, i.e. "!dict" **is not** case sensitive.
-
-The bot will then give you the Oxford Dictionary (or Urban Dictionary; if the word does not exist in the Oxford Dictionary) definition of the word as a comment reply.
+If you find a person of interest, you can query their entire history of comments and analyze their data further.
 
 ### Example:
+```
+const params = {
+    q: 'javascript',
+    size: 25,
+    subreddit: 'askreddit'
+}
+const TYPE = {
+    COMMENT: 'comment',
+    subreddit: 'subreddit'
+}
 
-> !dict what is love
+Services.pushshift.get({params}, TYPE.COMMENT, 1)
+```
 
-**Definition:**
+**Result:**
 
-Baby, dont hurt me~
-Dont hurt me~ no more.
+Invoking this function will query pushshift comment data with your chosen params and will paginate 1 single time.
 
-**Example:**
+It will then funnel your data through Sentiment and then persist it to the DB for you to do with what you please.
 
-Dude1: Bruh, what is love?
-Dude2: Baby, dont hurt me, dont hurt me- no more!
-Dude1: dafuq?
-
-**Source:** https://www.urbandictionary.com/define.php?term=what%20is%20love
-
----
-
-<sup>Beep boop. I am a bot. If there are any issues, contact my [Master](https://www.reddit.com/message/compose/?to=PositivePlayer1&subject=/u/Wordbook_Bot)</sup>
-
-<sup>Want to make a similar reddit bot? Check out: [GitHub](https://github.com/kylelobo/Reddit-Bot)</sup>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -98,46 +95,59 @@ These instructions will get you a copy of the project up and running on your loc
 What things you need to install the software and how to install them.
 
 ```
-Give examples
+npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
 ```
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running.
+First thing's first. You could use your current account for this, but I reccomend that you create a fresh account for the bot.
 
-Say what the step will be
+Once the account is created and you are logged in, visit this url(https://www.reddit.com/prefs/apps/) and create a script app. Here is where you will find the values needed to authenticate the bot.
+
+You are required to give it a valid redirect url, but it can go anywhere, say google.com.
+
+Now that you have your authorization codes, navigate to the 'pw.envEXAMPLE' file in the root folder of this application
+
+Once in the file, fill in the fields below.
+
+    SnoodlyCaps>pw.envEXAMPLE
+
+USER_AGENT=''
+CLIENT_ID=''
+CLIENT_SECRET=''
+REDDIT_USER=''
+REDDIT_PASS=''
+DB_URL=''
+
+Now remove 'EXAMPLE' from the end of the file name.
+
+    (E.g. 'SnoodlyCaps/pw.envExample' > 'SnoodlyCaps/pw.env')
+
+Now that you'ved filled in your account details, you need to run this command to install the required dependencies the bot needs to run.
 
 ```
-Give the example
-```
-
-And repeat
+npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
 
 ```
-until finished
-```
 
-End with an example of getting some data out of the system or using it for a little demo.
+It will take a couple minutes to finish installing.
 
-## 🚀 Deploying your own bot <a name = "deployment"></a>
+Once finished, you can run the bot by using this command from within the root folder:
 
-To see an example project on how to deploy your bot, please see my own configuration:
+    node src/app.js
 
-- **Heroku**: https://github.com/kylelobo/Reddit-Bot#deploying_the_bot
+And that's it! If you have any questions or comments, send me a pm on Github or through Reddit /u/Bwz3r. I'll be happy to help you.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [PRAW](https://praw.readthedocs.io/en/latest/) - Python Reddit API Wrapper
-- [Heroku](https://www.heroku.com/) - SaaS hosting platform
+- [SENTIMENT]https://www.npmjs.com/package/sentiment) - Sentiment Analysis Tool
+- [SNOOWRAP](https://www.npmjs.com/package/snoowrap) - Reddit API Wrapper
+- [SNOOSTORM](https://www.npmjs.com/package/snoostorm) - Used to extract live streams from Snoowrap
+- [AXIOS](https://www.npmjs.com/package/axios) - For making general HTTP requests
+- [MONGOOSE](https://www.npmjs.com/package/mongoose) - For connecting and persisting to a NoSQL MongoDB
+- [DOTENV](https://www.npmjs.com/package/dotenv) - For accessing environment variables to enable use on multiple systems
+
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
+- [@jdev](https://github.com/web-temps) - an interesting project by JDev :)
