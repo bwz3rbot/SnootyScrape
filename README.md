@@ -45,7 +45,7 @@ SnootyScraper also has the ability to scour a specific user's entire comment his
 
 ## 🎈 Usage <a name = "usage"></a>
 
-SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and give it a name to output the dataset to.
+SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and let it do its' thing.
 
 You can then view your database and organize how you wish.
 
