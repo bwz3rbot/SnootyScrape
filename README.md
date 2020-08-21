@@ -5,15 +5,6 @@
 
 <h3 align="center">snootyscrape</h3>
 
-<div align="center">
-
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![Platform](https://img.shields.io/badge/platform-reddit-orange.svg)](https://www.reddit.com/user/Wordbook_Bot)
-[![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/kylelobo/The-Documentation-Compendium.svg)](https://github.com/kylelobo/The-Documentation-Compendium/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
-</div>
 
 ---
 
@@ -127,7 +118,6 @@ Now that you'ved filled in your account details, you need to run this command to
 
 ```
 npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
-
 ```
 
 It will take a couple minutes to finish installing.
@@ -140,7 +130,7 @@ And that's it! If you have any questions or comments, send me a pm on Github or 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [SENTIMENT]https://www.npmjs.com/package/sentiment) - Sentiment Analysis Tool
+- [SENTIMENT](https://www.npmjs.com/package/sentiment) - Sentiment Analysis Tool
 - [SNOOWRAP](https://www.npmjs.com/package/snoowrap) - Reddit API Wrapper
 - [SNOOSTORM](https://www.npmjs.com/package/snoostorm) - Used to extract live streams from Snoowrap
 - [AXIOS](https://www.npmjs.com/package/axios) - For making general HTTP requests
