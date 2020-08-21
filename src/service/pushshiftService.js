@@ -25,8 +25,10 @@ const get = (params, type, pagesLeft) => {
             params
         })
         .then((response) => {
+            
 
             response.data.data.forEach(item => {
+
                
                 let commentID = item.id
                 snoowrap.getComment(commentID).fetch().then(function (comment) {
@@ -48,7 +50,9 @@ const get = (params, type, pagesLeft) => {
             if (pagesLeft > 0) {
                 get(params, type, pagesLeft - 1);
             } else {
-                // FInished
+              
+                console.log('indexing complete. found '+ length +' results.')
+                console.log('ALL_UTC = '+ ALL_UTC)
             }
         });
 };

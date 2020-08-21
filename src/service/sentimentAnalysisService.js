@@ -48,6 +48,8 @@ class SentimentObject {
             this.positive = result.positive
             this.negative = result.negative
 
+            console.dir(this)
+
 
             this.mapDTO()
 

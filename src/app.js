@@ -20,5 +20,17 @@ const Services = require('./service/_Services').get
 // Choose a Service, then a function... Et voilà - You have your data!
 
 
-Services.comments.analyzeCommentStream('All')
-// Services.user.getAllUserComments('username')
+// Services.comments.analyzeCommentStream('All')
+// // Services.user.getAllUserComments('username')
+
+
+
+// Get requires ({params},searchType, number of pages)
+const params = {
+    q: 'javascript',
+    size: 1,
+    subreddit: 'askreddit'
+}
+
+
+Services.pushshift.get({params},'comment',1)
