@@ -103,15 +103,15 @@ Now remove 'EXAMPLE' from the end of the file name.
 
     (E.g. 'SnootyScrape/pw.envExample' > 'SnootyScrape/pw.env')
 
-Now that you'ved filled in your account details, you need to run this command to install the required dependencies the bot needs to run.
+Now that you'ved filled in your account details, you just need to run this command to install the nececary dependencies.
 
 ```
 npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
 ```
 
-It will take a couple minutes to finish installing.
+This will take a couple minutes to complete.
 
-Once finished, you can run the bot by using this command from within the root folder:
+Once finished, you can run the bot by invoking this command from within the root folder:
 
     node src/app.js
 
