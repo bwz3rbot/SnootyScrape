@@ -34,7 +34,7 @@ const params = {
 
 const TYPE = {
     COMMENT: 'comment',
-    subreddit: 'subreddit'
+    SUBMISSION: 'submission'
 
 }
 

@@ -60,7 +60,7 @@ const params = {
 }
 const TYPE = {
     COMMENT: 'comment',
-    subreddit: 'subreddit'
+    SUBMISSION: 'submission'
 }
 
 Services.pushshift.get({params}, TYPE.COMMENT, 1)
