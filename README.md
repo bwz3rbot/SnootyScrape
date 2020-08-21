@@ -3,12 +3,12 @@
  <img width=200px height=200px src="https://i.imgur.com/FxL5qM0.jpg" alt="Bot logo"></a>
 </p>
 
-<h3 align="center">snootyscrape</h3>
+<h3 align="center">SnootyScrape</h3>
 
 
 ---
 
-<p align="center"> 🤖 This bot scrapes Reddit and Pushshift data to gather data on users <em>sentiment</em> on a specific topic. It persists the data it finds into a database for later research, and allows a developer to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important decisions!
+<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists what it finds to a database for later research, and allows one to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
     <br> 
 </p>
 
@@ -19,12 +19,8 @@
 - [How it works](#working)
 - [Usage](#usage)
 - [Getting Started](#getting_started)
-- [Deploying your own bot](#deployment)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -49,7 +45,7 @@ SnootyScraper also has the ability to scour a specific user's entire comment his
 
 ## 🎈 Usage <a name = "usage"></a>
 
-SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and give it a name to output the dataset to.
+SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and let it do its' thing.
 
 You can then view your database and organize how you wish.
 
@@ -79,17 +75,6 @@ It will then funnel your data through Sentiment and then persist it to the DB fo
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
-```
-
-### Installing
 
 First thing's first. You could use your current account for this, but I reccomend that you create a fresh account for the bot.
 
@@ -102,14 +87,14 @@ Now that you have your authorization codes, navigate to the 'pw.envEXAMPLE' file
 Once in the file, fill in the fields below.
 
     SnoodlyCaps>pw.envEXAMPLE
-
+```
 USER_AGENT=''
 CLIENT_ID=''
 CLIENT_SECRET=''
 REDDIT_USER=''
 REDDIT_PASS=''
 DB_URL=''
-
+```
 Now remove 'EXAMPLE' from the end of the file name.
 
     (E.g. 'SnoodlyCaps/pw.envExample' > 'SnoodlyCaps/pw.env')
