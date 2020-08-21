@@ -21,6 +21,11 @@ const params = {
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
 const get = (params, type, pagesLeft) => {
+
+    console.log(`beginning search....\n
+    params = ${params},\n
+    searchType = ${type},\n
+    number of pages to index = ${pagesLeft}`)
     axios.get(URL + type, {
             params
         })

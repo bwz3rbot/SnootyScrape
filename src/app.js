@@ -28,7 +28,7 @@ const Services = require('./service/_Services').get
 // Get requires ({params},searchType, number of pages)
 const params = {
     q: 'javascript',
-    size: 1,
+    size: 25,
     subreddit: 'askreddit'
 }
 
