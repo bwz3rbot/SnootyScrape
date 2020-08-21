@@ -8,7 +8,7 @@
 
 ---
 
-<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists the data it finds into a database for later research, and allows a developer to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important decisions!
+<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists what it finds to a database for later research, and allows one to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
     <br> 
 </p>
 
