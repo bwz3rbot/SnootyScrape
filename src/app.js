@@ -42,7 +42,7 @@ const TYPE = {
 // Choose one of these main services.
 
 // Query Pushshift data with params, type of search, and number of times to paginate
-const queryPushshift = Services.pushshift.get({params}, TYPE.COMMENT, 1)
+const queryPushshift = Services.pushshift.get({params}, TYPE.COMMENT, 1, 'MyDataset')
 
 // Or get a live stream from a sub
 const streamFromSub = Services.comments.analyzeCommentStream('subname')

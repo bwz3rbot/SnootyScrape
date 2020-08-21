@@ -20,7 +20,7 @@ const params = {
 
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
-const get = (params, type, pagesLeft) => {
+const get = (params, type, pagesLeft, dataset) => {
 
     console.log(`beginning search....\n
     params = ${params},\n
@@ -38,7 +38,7 @@ const get = (params, type, pagesLeft) => {
                 let commentID = item.id
                 snoowrap.getComment(commentID).fetch().then(function (comment) {
 
-                    let newSentiment = new SentimentObject(comment, 'pushshift');
+                    let newSentiment = new SentimentObject(comment, dataset);
                     newSentiment.analyze();
 
                 })
