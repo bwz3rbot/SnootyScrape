@@ -31,7 +31,7 @@ const TYPE = {
 const COLLECTION_NAME = "10ResultsAboutElvis"
 
 
-// Query Pushshift data with params, type of search, and number of times to paginate through the results
+// Query Pushshift data with params, type of search, number of times to paginate through the results, and a name for the collection
 const queryPushshift = function () {
     Services.pushshift.get(
         params,
