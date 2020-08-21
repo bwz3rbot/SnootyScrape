@@ -1,7 +1,7 @@
 // Edit params for queryPushshift
-const PARAMS = {
-    q: 'javascript',
-    size: 10,
+let PARAMS = {
+    q: 'Elvis',
+    size: 5,
     subreddit: 'askreddit'
 }
 
@@ -11,19 +11,13 @@ const TYPE = {
 
 }
 
-// 0 = one page of results. 
-// 1 = two pages(one pagination), 
-// 2 = three pages of data returned(twice paginated)
-// Update this value to get more results.
-const PAGINATE = 0;
+const COLLECTION_NAME = "10ResultsAboutElvis"
 
-const DATASET_NAME = '';
-
-
+const PAGES = 1;
 
 module.exports = {
     PARAMS:PARAMS,
     TYPE:TYPE,
-    PAGINATE:PAGINATE,
-    DATASET_NAME:DATASET_NAME
+    COLLECTION_NAME:COLLECTION_NAME,
+    PAGES:PAGES
 }
