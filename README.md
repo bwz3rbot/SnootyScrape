@@ -75,9 +75,6 @@ It will then funnel your data through Sentiment and then persist it to the DB fo
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Installing
 
 First thing's first. You could use your current account for this, but I reccomend that you create a fresh account for the bot.
 
