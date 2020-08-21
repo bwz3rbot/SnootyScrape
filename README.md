@@ -77,14 +77,6 @@ It will then funnel your data through Sentiment and then persist it to the DB fo
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
-```
-
 ### Installing
 
 First thing's first. You could use your current account for this, but I reccomend that you create a fresh account for the bot.
