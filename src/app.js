@@ -25,10 +25,10 @@ const Services = require('./service/_Services').get
 
 
 
-// Edit params for queryPushshift
-const params = {
-    q: 'javascript',
-    size: 1,
+// Edit params for your Pushshift Query
+let params = {
+    q: 'Elvis',
+    size: 50,
     subreddit: 'askreddit'
 }
 
@@ -38,11 +38,20 @@ const TYPE = {
 
 }
 
+const COLLECTION_NAME = "100ResultsAboutElvis"
+
 
 // Query Pushshift data with params, type of search, and number of pages to return
-const queryPushshift = function () {
+let queryPushshift = function () {
     Services.pushshift.get(
-        params, TYPE.COMMENT, 1, '1page1result')
+        params,
+        TYPE.COMMENT,
+        1,
+        COLLECTION_NAME
+    )
+    setTimeout(function(){
+        console.log("Idexing Complete!")
+    })
 }
 
 
@@ -54,5 +63,6 @@ const analyzeUser = function (username) {
 // ---------------------------------------------------------------------------
 // Run one of these functions at a time below this line:
 
+analyzeUser('peacefulpiranha')
 
 // ---------------------------------------------------------------------------

@@ -6,7 +6,6 @@ const pushshift = require('./pushshiftService')
 const get = {
 
     // WORKING
-
     user: user,
     pushshift: pushshift
 

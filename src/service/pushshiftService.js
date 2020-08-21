@@ -20,35 +20,42 @@ const params = {
 
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
+let count = 1;
 const get = (params, type, pagesLeft, dataset) => {
+    console.log('beginning request ' + count + ' with dataset = ' + dataset)
+    count = count++
+  
 
-    console.log(`beginning search....\n
-    params = ${JSON.stringify(params)},\n
-    searchType = ${type},\n
-    number of pages to index = ${pagesLeft}`)
-    axios.get(URL + type, {params})
+    console.log('params = ' + JSON.stringify(params))
+    axios.get(URL + type, {
+            params
+        })
         .then((response) => {
+           
+            console.log('responseUrl = ' + response.config.responseUrl)
+
+      
 
 
-            let count = 0;
+        
+
+            let items = 1;
+            // For Each item in response.data.data[]
             response.data.data.forEach(item => {
-                console.log('indexing item ' + count)
-                count = count+1
+                console.log('indexing item ' + items)
+                items = items + 1
 
 
                 let commentID = item.id
                 snoowrap.getComment(commentID).fetch().then(function (comment) {
 
+                    console.log('creating new sentimenet in dataset ' + dataset)
                     let newSentiment = new SentimentObject(comment, dataset);
                     newSentiment.analyze();
 
-                }).then(function(){
+                }).then(function () {
                     console.log("indexing complete! indexed " + count + ' items!')
                 })
-
-
-
-
 
             })
             let length = response.data.data.length - 1;
@@ -56,7 +63,7 @@ const get = (params, type, pagesLeft, dataset) => {
             ALL_UTC.push(utc)
             params.before = utc;
             if (pagesLeft > 0) {
-                get(params, type, pagesLeft - 1);
+                get(params, type, pagesLeft - 1, dataset);
             } else {
 
                 console.log('indexing complete. found ' + length + ' results.')
