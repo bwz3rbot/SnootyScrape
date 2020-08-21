@@ -87,14 +87,14 @@ Now that you have your authorization codes, navigate to the 'pw.envEXAMPLE' file
 Once in the file, fill in the fields below.
 
     SnoodlyCaps>pw.envEXAMPLE
-
+```
 USER_AGENT=''
 CLIENT_ID=''
 CLIENT_SECRET=''
 REDDIT_USER=''
 REDDIT_PASS=''
 DB_URL=''
-
+```
 Now remove 'EXAMPLE' from the end of the file name.
 
     (E.g. 'SnoodlyCaps/pw.envExample' > 'SnoodlyCaps/pw.env')
