@@ -63,7 +63,7 @@ const TYPE = {
     SUBMISSION: 'submission'
 }
 
-Services.pushshift.get({params}, TYPE.COMMENT, 1)
+Services.pushshift.get({params}, TYPE.COMMENT, 1, 'ColletionName')
 ```
 
 **Result:**
