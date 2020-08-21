@@ -45,7 +45,7 @@ SnootyScraper also has the ability to scour a specific user's entire comment his
 
 ## 🎈 Usage <a name = "usage"></a>
 
-SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters and let it do its' thing.
+SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters you wish to include in the search and let it do its' thing.
 
 You can then view your database and organize how you wish.
 
@@ -53,17 +53,21 @@ If you find a person of interest, you can query their entire history of comments
 
 ### Example:
 ```
-const params = {
-    q: 'javascript',
-    size: 25,
+let params = {
+    q: 'Elvis',
+    size: 5,
     subreddit: 'askreddit'
 }
+
 const TYPE = {
     COMMENT: 'comment',
     SUBMISSION: 'submission'
+
 }
 
-Services.pushshift.get({params}, TYPE.COMMENT, 1, 'ColletionName')
+const COLLECTION_NAME = "10ResultsAboutElvis"
+
+Services.pushshift.get({params}, TYPE.COMMENT, 1, COLLECTION_NAME)
 ```
 
 **Result:**
