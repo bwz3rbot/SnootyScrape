@@ -17,7 +17,7 @@
 
 ---
 
-<p align="center"> 🤖 Few lines describing what your bot does.
+<p align="center"> 🤖 This bot scrapes Reddit and Pushshift data to gather data on users <em>sentiment</em> on a specific topic. It persists the data it finds into a database for later research, and allows a developer to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important decisions!
     <br> 
 </p>
 
@@ -37,13 +37,14 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your bot.
+This bot was created for the purpose of researching the current opinion on a given topic.
 
 ## 🎥 Demo / Working <a name = "demo"></a>
 
-![Working](https://media.giphy.com/media/20NLMBm0BkUOwNljwv/giphy.gif)
+![Working]
+>Here's a demo of it in action: <a href= 'https://www.youtube.com/watch?v=kq3zs70CQVU'>https://www.youtube.com/watch?v=kq3zs70CQVU</a>
 
-## 💭 How it works <a name = "working"></a>
+## 💭 How it works <a name = "working"></>
 
 The bot first extracts the word from the comment and then fetches word definitions, part of speech, example and source from the Oxford Dictionary API.
 
