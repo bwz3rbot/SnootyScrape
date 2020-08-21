@@ -72,7 +72,7 @@ Services.pushshift.get({params}, TYPE.COMMENT, 1, COLLECTION_NAME)
 
 **Result:**
 
-Invoking this function will query pushshift comment data with your chosen params and will paginate 1 single time.
+Invoking this function will query pushshift comment data with your chosen params and will paginate 1 single time, producing 10 results - or 2 pages containing 5 results each.
 
 It will then funnel your data through Sentiment and then persist it to the DB for you to do with what you please.
 
