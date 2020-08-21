@@ -45,13 +45,13 @@ const queryPushshift = function () {
 }
 
 
-// Find a person of interest in your search? Input their name here to make a report on them.
+// Find a person of interest in your search? Input their name here to generate a report on them.
 const analyzeUser = function (username) {
     Services.user.getAllUserComments(username)
 }
 
 // ---------------------------------------------------------------------------
-// Make sure that your dabase is running and then call either of the above functions below this line to run:
+// First, be sure that your dabase is running at the URL you specified in 'pw.env' and then call either of the above functions below this line:
 
 
 
