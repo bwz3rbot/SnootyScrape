@@ -11,18 +11,8 @@ require('dotenv').config({
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
 require('./config/snoo-config');
 
-
-
 // Get List of Available Services
 const Services = require('./service/_Services').get
-
-
-// Choose a Service, then a function... Et voilà - You have your data!
-
-
-// Services.comments.analyzeCommentStream('All')
-// // Services.user.getAllUserComments('username')
-
 
 
 // Edit params for your Pushshift Query
@@ -61,7 +51,7 @@ const analyzeUser = function (username) {
 }
 
 // ---------------------------------------------------------------------------
-// Run one of these functions at a time below this line:
+// Make sure that your dabase is running and then call either of the above functions below this line to run:
 
 
 
