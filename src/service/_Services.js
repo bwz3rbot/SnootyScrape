@@ -1,4 +1,3 @@
-
 const user = require('./userService')
 const comments = require('./commentStormService')
 const pushshift = require('./pushshiftService')
@@ -7,7 +6,7 @@ const pushshift = require('./pushshiftService')
 const get = {
 
     // WORKING
-    comments: comments,
+
     user: user,
     pushshift: pushshift
 

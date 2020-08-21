@@ -28,7 +28,7 @@ const Services = require('./service/_Services').get
 // Edit params for queryPushshift
 const params = {
     q: 'javascript',
-    size: 25,
+    size: 1,
     subreddit: 'askreddit'
 }
 
@@ -39,16 +39,17 @@ const TYPE = {
 }
 
 
-// Choose one of these main services.
+// Query Pushshift data with params, type of search, and number of pages to return
+const queryPushshift = function () {
+    Services.pushshift.get(
+        params, TYPE.COMMENT, 1, '1page1result')
+}
 
-// Query Pushshift data with params, type of search, and number of times to paginate
-const queryPushshift = Services.pushshift.get({params}, TYPE.COMMENT, 1, 'MyDataset')
-
-// Or get a live stream from a sub
-const streamFromSub = Services.comments.analyzeCommentStream('subname')
 
 // Find a person of interest in your search? Input their name here to make a report on them.
-const analyzeUser = Services.user.getAllUserComments('username')
+const analyzeUser = function (username) {
+    Services.user.getAllUserComments(username)
+}
 
 // ---------------------------------------------------------------------------
 // Run one of these functions at a time below this line:

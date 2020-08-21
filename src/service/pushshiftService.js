@@ -23,24 +23,27 @@ let ALL_UTC = []
 const get = (params, type, pagesLeft, dataset) => {
 
     console.log(`beginning search....\n
-    params = ${params},\n
+    params = ${JSON.stringify(params)},\n
     searchType = ${type},\n
     number of pages to index = ${pagesLeft}`)
-    axios.get(URL + type, {
-            params
-        })
+    axios.get(URL + type, {params})
         .then((response) => {
-            
 
+
+            let count = 0;
             response.data.data.forEach(item => {
+                console.log('indexing item ' + count)
+                count = count+1
 
-               
+
                 let commentID = item.id
                 snoowrap.getComment(commentID).fetch().then(function (comment) {
 
                     let newSentiment = new SentimentObject(comment, dataset);
                     newSentiment.analyze();
 
+                }).then(function(){
+                    console.log("indexing complete! indexed " + count + ' items!')
                 })
 
 
@@ -55,9 +58,9 @@ const get = (params, type, pagesLeft, dataset) => {
             if (pagesLeft > 0) {
                 get(params, type, pagesLeft - 1);
             } else {
-              
-                console.log('indexing complete. found '+ length +' results.')
-                console.log('ALL_UTC = '+ ALL_UTC)
+
+                console.log('indexing complete. found ' + length + ' results.')
+                console.log('ALL_UTC = ' + ALL_UTC)
             }
         });
 };

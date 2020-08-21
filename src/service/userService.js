@@ -19,11 +19,12 @@ const getUser = function (username) {
 
 // Generates a list of every comment a specific user has ever made and saves to 'users' collection
 const getAllUserComments = function (username) {
-
+    console.log('Fetching all comments from u/'+username)
     getUser(username).getComments().fetchAll().then(function (comments) {
+        
 
         comments.forEach(comment => {
-            let newSentiment = new SentimentObject(comment, 'user');
+            let newSentiment = new SentimentObject(comment, 'u/'+username);
 
             newSentiment.analyze();
 
