@@ -5,7 +5,7 @@
 
 // Require Configuration Files
 require('dotenv').config({
-    path: "./snooty.env"
+    path: "./pw.env"
 });
 
 // Require and Initialize The Snoo-Pendencies With Authentication Credentials
