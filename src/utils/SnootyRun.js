@@ -1,5 +1,15 @@
 // Snooty Run provides a CLI for the user to query data
 
+const {
+    type
+} = require('os')
+const {
+    resolve
+} = require('path')
+const {
+    callbackify
+} = require('util')
+
 
 
 // Standard In
@@ -24,6 +34,7 @@ class Snooty {
         console.log('**************************************\n' + " || Welcome to SnootyScraper! --> " + formatted_date)
 
 
+        // Query user input
         run()
     }
 
@@ -36,13 +47,14 @@ class Snooty {
 }
 
 
-// Run App -- Prompts user for query... Calls queryParams()
+// Run App -- Prompts user input from console
 let promptMessage = 'What would you like to do?\n>'
 const run = function () {
 
 
 
 
+    // Options: help, query, exit, (error)
     readLine.question(promptMessage, ans => {
 
         ans === 'help' ? help(ans) : ans === 'query' ? queryParams() : ans === 'exit' ? exit() : error(ans)
@@ -55,17 +67,18 @@ const run = function () {
 
 
 
-
-// Query Params -- 
-// (called when user says 'query') -> calls function includeInParams()
+// 
+// Query
 let queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
 const queryParams = function (msg) {
 
-    // msg updates upon recursion
-    if (msg) {
+
+    if (msg) { // msg updates upon recursion
         queryMessage = msg
     }
 
+
+    // includeInParams() > runPushshiftQuery()
     readLine.question(queryMessage, ans => {
         ans != 'go' ? includeInParams(ans) : runPushshiftQuery()
     })
@@ -82,6 +95,7 @@ let count = 1;
 let msg = '';
 const includeInParams = function (ans) {
 
+    // [Oops] command resets query
     if (ans === 'cancel') {
         cancelQuery()
     } else {
@@ -89,60 +103,111 @@ const includeInParams = function (ans) {
 
 
 
-
-
+        // Push keys and values to respective arrays
         if (count % 2) {
-
             queryParamKeys.push(ans)
             msg = `enter a value:\n>`
         } else {
-
             queryParamValues.push(ans)
             msg = `enter another key or type go to get search results\n>`
         }
 
 
 
+        // Alternate between push() > key/value upon each iteration
         count = count + 1
 
+        // Get the next key or value
         queryParams(msg)
     }
 
 }
 
 
+
+
 // Pushshift Service access
 let queryParamsList = {}
 let outputName;
-let paginate;
+let paginateAmnt;
 let typeOfSearch;
+let isPaused = false;
 const runPushshiftQuery = function () {
 
-    console.log('prompting user for outputname, paginations, and type of search:')
-    typeOfSearch = 'type of search'
 
-    
-    readLine.question(typeOfSearch, (ans) => {
+
+
+    // Map query params from seperate arrays to singular object
+    queryParamsList = mapKeyValuesToObject(queryParamKeys, queryParamValues)
+
+
+
+    // Query STDIN for outputName, paginateAmnt, and typeOfSearch
+
+    let typeOfSearchPrompt = 'type of search:\n>'
+    let paginatePrompt = 'pagination amount:\n>'
+    let outputNamePrompt = 'db output name:\n>'
+
+    // Set Type Of Search
+    readLine.question(typeOfSearchPrompt, (ans) => {
         typeOfSearch = ans
+
+        // Set Pagination Amnt
+        readLine.question(paginatePrompt, (ans) => {
+            paginateAmnt = ans
+
+            // Set Output Name
+            readLine.question(outputNamePrompt, (ans) => {
+                outputName = ans
+
+                // Send Query
+                completeQuery()
+              
+            })
+
+
+
+        })
+
+
 
     })
 
-    queryParamsList = mapKeyValuesToObject(queryParamKeys, queryParamValues)
-
-    console.dir(queryParamsList)
-
-    console.log('beginning search!')
-
-    queryPushShift(queryParamsList, typeOfSearch, paginate, outputName)
-
-    console.log('pushshift query complete!\n')
+    // Prompt user for another command
+    returnToPrompt();
 
 
-    queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
-    clearObjects();
 
-    run()
+}
 
+// Waits for promptSearchOptions() to complete then executes
+const completeQuery = function () {
+    isPaused = true;
+
+    if (isPaused) {
+        setTimeout(function () {
+            // THEN Send request to Pushshift with params and options
+            queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName)
+            
+            queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
+            // 
+        }, 100)
+    }
+
+
+
+}
+
+
+
+const returnToPrompt = function () {
+
+    if (isPaused) {
+        setTimeout(function () {
+            run()
+            isPaused = false;
+        }, 100)
+    }
 
 }
 
@@ -169,9 +234,15 @@ const clearObjects = function () {
 
 // Map Key Values to Object
 const mapKeyValuesToObject = function (keys, values) {
+    isPaused = true
+
+
     let result = {}
-    for (i = 0; i < keys.length; i++)
+    for (i = 0; i < keys.length; i++) {
         result[keys[i]] = values[i];
+    }
+
+    isPaused = false
 
     return result;
 

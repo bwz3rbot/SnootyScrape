@@ -21,7 +21,7 @@ const params = {
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
 let count = 1;
-const get = (params, type, pagesLeft, dataset) => {
+const get = (params, type, pagesLeft, dataset, pause) => {
     console.log('beginning request ' + count + ' with dataset = ' + dataset)
     count = count++
   
@@ -55,6 +55,7 @@ const get = (params, type, pagesLeft, dataset) => {
 
                 }).then(function () {
                     console.log("indexing complete! indexed " + count + ' items!')
+                    
                 })
 
             })
@@ -64,10 +65,9 @@ const get = (params, type, pagesLeft, dataset) => {
             params.before = utc;
             if (pagesLeft > 0) {
                 get(params, type, pagesLeft - 1, dataset);
+                
             } else {
 
-                console.log('indexing complete. found ' + length + ' results.')
-                console.log('ALL_UTC = ' + ALL_UTC)
             }
         });
 };
