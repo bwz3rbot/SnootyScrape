@@ -90,8 +90,9 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
                 get(params, type, pagesLeft - 1, dataset, _callback);
 
             } else {
-                if(_callback){
+                if (_callback) {
                     _callback();
+                    count = 1;
                 }
 
             }
