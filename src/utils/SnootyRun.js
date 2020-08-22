@@ -163,12 +163,11 @@ const runPushshiftQuery = function () {
 
 // helps the returnToPrompt callback decide when to run
 let totalNumberItems
-let ready = {
+class Ready {
 
     // Total Number of Items
-    setTotalNumberItems: function () {
+    setTotalNumberItems() {
         console.log('setting total number of items...')
-
 
         console.log('queryParamsList.size = ' + queryParamsList.size)
         console.log('paginateAmnt = ' + paginateAmnt)
@@ -178,12 +177,15 @@ let ready = {
         totalNumberItems =
             parseInt(queryParamsList.size) * (parseInt(paginateAmnt) + 1)
         console.log('total number of items to be indexed: ' + totalNumberItems)
-    },
-    
+    }
+
+    checkIfReady() {
+        checkIfReady(totalNumberItems)
+    }
 
 }
 
-let checkIfReady = function(){
+let checkIfReady = function (totalNumberItems) {
     return returnToPrompt(totalNumberItems)
 }
 
@@ -192,25 +194,27 @@ let checkIfReady = function(){
 let itemCount = totalNumberItems;
 let countDownItems = function (totalNumberItems) {
     console.log('CHECKING IF READY!\n COUNT = ' + totalNumberItems)
-    // Decrement count each pass
-    itemCount = itemCount - 1
 
 
-    if (counter = 0) {
-        console.log('COUNT IS NOW 0.... RETURNING TRUE')
-        return true;
-    } else {
-        console.log('not yet...')
-        console.log('count? ' + totalNumberItems)
+
+    if (itemCount < 0) {
+        // Decrement count each pass
+        console.log('ON ITEM: ' + itemCount)
+        itemCount = itemCount - 1
+    }
+
+    if (itemCount === 0) {
+        console.log('!LAST ITEM!')
+
+
     }
 }
-
 // Callback (ran from within sentimentDTO)
 const returnToPrompt = function (totalNumberItems) {
 
     // Checks the ready class for if the size of remaining search is = 0
     if (countDownItems(totalNumberItems)) {
-        return run()
+        run()
     }
 
 
@@ -221,8 +225,11 @@ const returnToPrompt = function (totalNumberItems) {
 const completeQuery = function () {
 
     // THEN Send request to Pushshift with params and options
-    ready.setTotalNumberItems();
-    queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, checkIfReady)
+    Ready.prototype.setTotalNumberItems();
+    queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, ()=> {
+        //THEN
+        run()
+    })
 
     queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
 

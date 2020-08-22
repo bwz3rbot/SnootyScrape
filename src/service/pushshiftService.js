@@ -20,43 +20,66 @@ const params = {
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
 let count = 1;
+
 const get = (params, type, pagesLeft, dataset, _callback) => {
 
 
     // MSG THE FIRST CYCLE -- checks if count is still 1 
     // (maybe need to set a way of making count back to one when finished working)
-    
-    if(count===1)console.log('WORKING...')
 
-    count = count++
-  
+    if (count === 1) console.log('WORKING...')
+    console.log(' || pass: ' + count)
+
+    count = count + 1
+
     axios.get(URL + type, {
             params
         })
         .then((response) => {
-           
-       
-        
 
-            let items = 1;
+
+
+
+
             // For Each item in response.data.data[]
             response.data.data.forEach(item => {
-           
-                items = items + 1
 
 
-                let commentID = item.id
-                snoowrap.getComment(commentID).fetch().then(function (comment) {
+                // Create a Reddit Object to be analyze from each item in the response
+                let RedditObject = {
+                    body: item.body,
+                    author: {
+                        name: item.author
+                    },
+                    subreddit: {
+                        display_name: item.subreddit
 
-                    console.log('creating new sentiment object')
-                    let newSentiment = new SentimentObject(comment, dataset, _callback);
-                    console.log('analyzing with callback')
-                    newSentiment.analyze();
+                    },
+                    created_utc: item.created_utc,
+                    id: item.id,
+                    parent_id: item.link_id,
+                    ups: item.score
+                }
 
-                }).then(function () {
-                    
-                    
-                })
+
+                // Check the contents
+                console.dir(RedditObject)
+
+                // Create a new SentimentObject to evaluate the RedditObject
+                let newSentiment = new SentimentObject(RedditObject, dataset);
+
+                // Analyze and persist the data
+                newSentiment.analyze()
+
+
+
+                // if (_callback) {
+                //     // Count down until run(CLI)
+                //     console.log('calling back!')
+                //     _callback();
+                // } else {
+                //     console.log('no callback available')
+                // }
 
             })
             let length = response.data.data.length - 1;
@@ -64,12 +87,16 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
             ALL_UTC.push(utc)
             params.before = utc;
             if (pagesLeft > 0) {
-                get(params, type, pagesLeft - 1, dataset);
-                
+                get(params, type, pagesLeft - 1, dataset, _callback);
+
             } else {
+                if(_callback){
+                    _callback();
+                }
 
             }
         });
 };
+
 
 module.exports.get = get;

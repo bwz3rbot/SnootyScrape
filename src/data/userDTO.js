@@ -185,7 +185,7 @@ const saveUserToDB = function (
         hide_from_robots: hide_from_robots,
         created: created,
         id: id,
-    
+
 
     }, function (err, obj) {
         if (err) {
@@ -197,8 +197,13 @@ const saveUserToDB = function (
 
     // Return to CLI when complete
     if(_callback){
-        _callback();
+        console.dir(_callback)
+    } else {
+        console.log('callback not available')
     }
+    
+
+
 
 
 
