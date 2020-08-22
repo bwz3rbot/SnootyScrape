@@ -13,7 +13,6 @@ const queryPushShift = require('../service/pushshiftService').get
 //Snooty Class creates a wrapper for SnootyRun
 class Snooty {
 
-
     // Constructor -- calls run()
     constructor() {
         console.log('constructing')
@@ -25,12 +24,6 @@ class Snooty {
         // Query user input
         run()
     }
-
-
-
-
-
-
 
 }
 
@@ -112,21 +105,26 @@ const includeInParams = function (ans) {
 }
 
 
-
-
 // Pushshift Service access
 let queryParamsList = {}
 let outputName;
 let paginateAmnt;
 let typeOfSearch;
-let isPaused = false;
 const runPushshiftQuery = function () {
-
-
 
 
     // Map query params from seperate arrays to singular object
     queryParamsList = mapKeyValuesToObject(queryParamKeys, queryParamValues)
+    console.log('after mapping key values to objects ...\nqueryParamsList = ')
+    console.dir(queryParamsList)
+    if (queryParamsList.size === null || queryParamsList.size === undefined) {
+        console.log('queryParamsList was null.. setting to 25')
+        console.dir(queryParamsList)
+
+        queryParamsList.size = 25
+
+        console.dir(queryParamsList)
+    }
 
 
 
@@ -148,56 +146,88 @@ const runPushshiftQuery = function () {
             readLine.question(outputNamePrompt, (ans) => {
                 outputName = ans
 
-                // Send Query
+                // Send Get Request to pushshift, then (when ready) callback returnToPrompt
                 completeQuery()
 
             })
 
 
-
         })
-
-
 
     })
 
-    // Prompt user for another command
-    returnToPrompt();
+}
 
+
+
+
+// helps the returnToPrompt callback decide when to run
+let totalNumberItems
+let ready = {
+
+    // Total Number of Items
+    setTotalNumberItems: function () {
+        console.log('setting total number of items...')
+
+
+        console.log('queryParamsList.size = ' + queryParamsList.size)
+        console.log('paginateAmnt = ' + paginateAmnt)
+
+
+        // Multiply queryParams[size] * paginationAmnt to get total number of items to be indexed
+        totalNumberItems =
+            parseInt(queryParamsList.size) * (parseInt(paginateAmnt) + 1)
+        console.log('total number of items to be indexed: ' + totalNumberItems)
+    },
+    
+
+}
+
+let checkIfReady = function(){
+    return returnToPrompt(totalNumberItems)
+}
+
+
+// Helps the Ready class know when to return true
+let itemCount = totalNumberItems;
+let countDownItems = function (totalNumberItems) {
+    console.log('CHECKING IF READY!\n COUNT = ' + totalNumberItems)
+    // Decrement count each pass
+    itemCount = itemCount - 1
+
+
+    if (counter = 0) {
+        console.log('COUNT IS NOW 0.... RETURNING TRUE')
+        return true;
+    } else {
+        console.log('not yet...')
+        console.log('count? ' + totalNumberItems)
+    }
+}
+
+// Callback (ran from within sentimentDTO)
+const returnToPrompt = function (totalNumberItems) {
+
+    // Checks the ready class for if the size of remaining search is = 0
+    if (countDownItems(totalNumberItems)) {
+        return run()
+    }
 
 
 }
 
-// Waits for promptSearchOptions() to complete then executes
+
+// Sends complete request to pushshift
 const completeQuery = function () {
-    isPaused = true;
 
-    if (isPaused) {
-        setTimeout(function () {
-            // THEN Send request to Pushshift with params and options
-            queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName)
+    // THEN Send request to Pushshift with params and options
+    ready.setTotalNumberItems();
+    queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, checkIfReady)
 
-            queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
-            // 
-        }, 100)
-    }
-
-
+    queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
 
 }
 
-
-
-const returnToPrompt = function () {
-
-    if (isPaused) {
-        setTimeout(function () {
-            run()
-            isPaused = false;
-        }, 100)
-    }
-
-}
 
 
 // Called from queryParams>includeInParams when user types 'cancel'
@@ -222,7 +252,7 @@ const clearObjects = function () {
 
 // Map Key Values to Object
 const mapKeyValuesToObject = function (keys, values) {
-    isPaused = true
+
 
 
     let result = {}
@@ -230,7 +260,6 @@ const mapKeyValuesToObject = function (keys, values) {
         result[keys[i]] = values[i];
     }
 
-    isPaused = false
 
     return result;
 

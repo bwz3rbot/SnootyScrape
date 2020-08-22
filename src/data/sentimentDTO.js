@@ -68,75 +68,6 @@ const analysisSchema = new mongoose.Schema({
 const SentimentAnalysis = mongoose.model("Study", analysisSchema)
 const UserAnalysis = mongoose.model("User", analysisSchema)
 
-// const saveAnalysisToDB = function ({
-//     dataset,
-//     body,
-//     user,
-//     subreddit,
-//     utc,
-//     comment_id,
-//     parent_id,
-//     votes,
-//     score,
-//     comparative,
-//     calculation,
-//     tokens,
-//     words,
-//     positive,
-//     negative
-// }) {
-
-//     const NewAnalysis = mongoose.model(dataset,analysisSchema)
-
-//     if (dataset === 'user') {
-
-//         NewAnalysis.create({
-//             body: body,
-//             user: user,
-//             subreddit: subreddit,
-//             utc: utc,
-//             comment_id: comment_id,
-//             parent_id: parent_id,
-//             votes: votes,
-//             score: score,
-//             comparative: comparative,
-//             calculation: calculation,
-//             tokens: tokens,
-//             words: words,
-//             positive: positive,
-//             negative: negative
-//         }, function (err) {
-//             if (err) console.log(err)
-//             else console.log('saved to db!')
-//         })
-//     }
-
-//     if (dataset === 'subreddit') {
-
-//         SentimentAnalysis.create({
-//             body: body,
-//             user: user,
-//             subreddit: subreddit,
-//             utc: utc,
-//             comment_id: comment_id,
-//             parent_id: parent_id,
-//             votes: votes,
-//             score: score,
-//             comparative: comparative,
-//             calculation: calculation,
-//             tokens: tokens,
-//             words: words,
-//             positive: positive,
-//             negative: negative
-//         }, function (err) {
-//             if (err) console.log(err)
-//             else console.log('saved to db!')
-//         })
-//     }
-
-
-// }
-
 
 const saveAnalysisToDB = function ({
     dataset,
@@ -153,74 +84,93 @@ const saveAnalysisToDB = function ({
     tokens,
     words,
     positive,
-    negative
+    negative,
+    _callback
 }) {
 
-    const NewAnalysis = mongoose.model(dataset+"_listing",analysisSchema)
-
-   
-        NewAnalysis.create({
-            body: body,
-            user: user,
-            subreddit: subreddit,
-            utc: utc,
-            comment_id: comment_id,
-            parent_id: parent_id,
-            votes: votes,
-            score: score,
-            comparative: comparative,
-            calculation: calculation,
-            tokens: tokens,
-            words: words,
-            positive: positive,
-            negative: negative
-        }, function (err) {
-            if (err) console.log(err)
-            else console.log('saved to db!')
-        })
-    
+    console.log('creating a new analysis object')
+    const NewAnalysis = mongoose.model(dataset + "_listing", analysisSchema)
 
 
-}
-
-const saveUserAnalysisToDB = function ({
-    body,
-    user,
-    subreddit,
-    utc,
-    comment_id,
-    parent_id,
-    score,
-    comparative,
-    calculation,
-    tokens,
-    words,
-    positive,
-    negative
-}) {
-
-
-    UserAnalysis.create({
+    NewAnalysis.create({
         body: body,
         user: user,
         subreddit: subreddit,
         utc: utc,
         comment_id: comment_id,
         parent_id: parent_id,
+        votes: votes,
         score: score,
         comparative: comparative,
         calculation: calculation,
         tokens: tokens,
         words: words,
         positive: positive,
-        negative: negative
+        negative: negative,
+
     }, function (err) {
         if (err) console.log(err)
-        else console.log('saved to db!')
+
     })
+
+
+    console.log('saving analysis to db.... should be hitting the callback here. not before.')
+    if (_callback) {
+        _callback()
+    }
+
+
+
+
+
+
 }
 
+// const saveUserAnalysisToDB = function ({
+//     body,
+//     user,
+//     subreddit,
+//     utc,
+//     comment_id,
+//     parent_id,
+//     score,
+//     comparative,
+//     calculation,
+//     tokens,
+//     words,
+//     positive,
+//     negative,
+//     _callback
+// }) {
+
+
+//     UserAnalysis.create({
+//         body: body,
+//         user: user,
+//         subreddit: subreddit,
+//         utc: utc,
+//         comment_id: comment_id,
+//         parent_id: parent_id,
+//         score: score,
+//         comparative: comparative,
+//         calculation: calculation,
+//         tokens: tokens,
+//         words: words,
+//         positive: positive,
+//         negative: negative
+//     }, function (err) {
+//         if (err) console.log(err)
+//         else console.log('saved to db!')
+//     })
+
+//     // Return to CLI after complete
+//     if (_callback) {
+//         _callback();
+
+//     }
+// }
+
 module.exports = {
-    saveUserAnalysisToDB: saveUserAnalysisToDB,
+
     saveAnalysisToDB: saveAnalysisToDB
 }

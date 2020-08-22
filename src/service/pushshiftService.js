@@ -1,6 +1,5 @@
 const URL = 'https://api.pushshift.io/reddit/search/'
 const axios = require('axios')
-const analysisService = require('./sentimentAnalysisService')
 const snoowrap = require('../config/snoo-config').snoowrap
 
 const {
@@ -21,40 +20,41 @@ const params = {
 // Query Pushshift data in a loop and run it through the AnalysisService
 let ALL_UTC = []
 let count = 1;
-const get = (params, type, pagesLeft, dataset, pause) => {
-    console.log('beginning request ' + count + ' with dataset = ' + dataset)
+const get = (params, type, pagesLeft, dataset, _callback) => {
+
+
+    // MSG THE FIRST CYCLE -- checks if count is still 1 
+    // (maybe need to set a way of making count back to one when finished working)
+    
+    if(count===1)console.log('WORKING...')
+
     count = count++
   
-
-    console.log('params = ' + JSON.stringify(params))
     axios.get(URL + type, {
             params
         })
         .then((response) => {
            
-            console.log('responseUrl = ' + response.config.responseUrl)
-
-      
-
-
+       
         
 
             let items = 1;
             // For Each item in response.data.data[]
             response.data.data.forEach(item => {
-                console.log('indexing item ' + items)
+           
                 items = items + 1
 
 
                 let commentID = item.id
                 snoowrap.getComment(commentID).fetch().then(function (comment) {
 
-                    console.log('creating new sentimenet in dataset ' + dataset)
-                    let newSentiment = new SentimentObject(comment, dataset);
+                    console.log('creating new sentiment object')
+                    let newSentiment = new SentimentObject(comment, dataset, _callback);
+                    console.log('analyzing with callback')
                     newSentiment.analyze();
 
                 }).then(function () {
-                    console.log("indexing complete! indexed " + count + ' items!')
+                    
                     
                 })
 

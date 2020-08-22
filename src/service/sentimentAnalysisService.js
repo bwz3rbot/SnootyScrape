@@ -7,7 +7,7 @@ const sentimentDTO = require('../data/sentimentDTO')
 // SentimentObject Class
 // Extracts data from a RedditObject and maps it to DB
 class SentimentObject {
-    constructor(RedditObject, dataset) {
+    constructor(RedditObject, dataset, _callback) {
         this.RedditObject = RedditObject;
 
         // dataset is used to define where the data is coming from 
@@ -27,10 +27,11 @@ class SentimentObject {
 
 
 
+        this._callback = _callback
 
         // Analyzes a  RedditObject(comment)
         this.analyze = function () {
-            console.log(`analyzing comment... dataset= ${dataset}`)
+      
 
 
             let result = runSentimentAnalysis(this.body)
@@ -51,6 +52,7 @@ class SentimentObject {
             
 
 
+            console.log('mapping dto.. sending callback to saveAnalysisToDB function')
             this.mapDTO()
 
         }
@@ -71,9 +73,10 @@ class SentimentObject {
                 tokens: this.tokens,
                 words: this.words,
                 positive: this.positive,
-                negative: this.negative
+                negative: this.negative,
+                _callback: this.callback
             })
-            console.log(`mapping dto dataset = ${dataset}`)
+        
 
 
         }
@@ -86,7 +89,7 @@ class SentimentObject {
 
 // Analyze a string and return a Sentiment Analysis Object
 const runSentimentAnalysis = function (str) {
-    console.log(`running sentiment analysis`)
+   
 
 
     return sentiment.analyze(str)

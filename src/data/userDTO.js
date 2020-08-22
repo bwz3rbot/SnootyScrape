@@ -153,7 +153,8 @@ const saveUserToDB = function (
     over_18,
     hide_from_robots,
     created,
-    id) {
+    id,
+    _callback) {
 
     console.log("SAVING USER TO DB")
 
@@ -183,9 +184,8 @@ const saveUserToDB = function (
         over_18: over_18,
         hide_from_robots: hide_from_robots,
         created: created,
-        id: id
-
-
+        id: id,
+    
 
     }, function (err, obj) {
         if (err) {
@@ -194,6 +194,11 @@ const saveUserToDB = function (
             console.log(`user created, ${obj}`)
         }
     })
+
+    // Return to CLI when complete
+    if(_callback){
+        _callback();
+    }
 
 
 
