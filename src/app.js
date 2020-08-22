@@ -53,7 +53,5 @@ const SnootyRunner = require('./utils/SnootyRun').Snooty
 
 const Snooty = new SnootyRunner()
 
-Snooty.run();
-
 
 // ---------------------------------------------------------------------------
