@@ -1,17 +1,5 @@
 // Snooty Run provides a CLI for the user to query data
 
-const {
-    type
-} = require('os')
-const {
-    resolve
-} = require('path')
-const {
-    callbackify
-} = require('util')
-
-
-
 // Standard In
 const readLine = require('readline').createInterface({
     input: process.stdin,
@@ -68,7 +56,7 @@ const run = function () {
 
 
 // 
-// Query
+// Set Query Params
 let queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
 const queryParams = function (msg) {
 
@@ -162,7 +150,7 @@ const runPushshiftQuery = function () {
 
                 // Send Query
                 completeQuery()
-              
+
             })
 
 
@@ -188,7 +176,7 @@ const completeQuery = function () {
         setTimeout(function () {
             // THEN Send request to Pushshift with params and options
             queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName)
-            
+
             queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
             // 
         }, 100)
