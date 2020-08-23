@@ -20,16 +20,26 @@ const getUser = function (username) {
 // Generates a list of every comment a specific user has ever made and saves to 'users' collection
 let totalLength;
 let count;
+let countMsg;
 const getAllUserComments = function (username, _callback) {
-    console.log('Fetching all comments from u/' + username +
+    console.log('\nFetching all comments from u/' + username +
         '\nplease wait....\t(this could take a while) \n')
     getUser(username).getComments().fetchAll().then(function (comments) {
 
         totalLength = comments.length
         count = totalLength;
 
-        console.log(`found ${count} items. indexing now...` )
+        if (count > 0){
+            countMsg = 'indexing now...'
+        } else {
+            countMsg = 'returning to the main menu'
+        }
+        console.log(`found ${count} items. ${countMsg}` )
+        
 
+        if(count > 0){
+
+        
 
         comments.forEach(comment => {
             let newSentiment = new SentimentObject(comment, 'u/' + username);
@@ -49,6 +59,10 @@ const getAllUserComments = function (username, _callback) {
 
 
         })
+    } else {
+        _callback();
+
+    }
 
 
     })
