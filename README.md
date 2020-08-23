@@ -26,12 +26,6 @@
 
 This bot was created for the purpose of researching the current opinion on any given topic.
 
-## 🎥 Demo / Working <a name = "demo"></a>
-
-Here is a video of it scraping and persisting data: <a href= 'https://www.youtube.com/watch?v=kq3zs70CQVU'>https://www.youtube.com/watch?v=kq3zs70CQVU</a><br>
-As you can see, there are many interesting things you could do with this!
-
-
 ## 💭 How it works <a name = "working"></a>
 
 The bot works by allowing its user to input a few paramaters which it then uses to query Pushshift data.
@@ -40,7 +34,7 @@ It takes the data it gathers from Pushshift and Reddit, then - through the magic
 
 This data is persisted to a NoSQL DB for easy catagorization, analyzation, and reuse.
 
-SnootyScraper also has the ability to scour a specific user's entire comment history to give some extra clarity to the results, and also to provide more valuable insight into your client-base.
+SnootyScraper also has the ability to scour a specific user's entire comment history to bring clarity to the results.
 
 
 ## 🎈 Usage <a name = "usage"></a>
@@ -49,7 +43,7 @@ SnootyScraper is incredibly easy to use and understand. Simply give it your cred
 
 You can then view your database and organize it as you wish.
 
-If you find a person of interest, you can query their entire history of comments and analyze the data further.
+If you find a person of interest, you can query their entire history to analyze further.
 
 ### Example:
 ```
