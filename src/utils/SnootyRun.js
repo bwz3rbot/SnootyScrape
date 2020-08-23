@@ -213,6 +213,8 @@ const runPushshiftQuery = function () {
 //// 2.b
 ////// Complete Query
 const completeQuery = function () {
+    console.log('BEFORE RUNNING PUSHSHIFT QUERY... typeof queryParamsList = '+ typeof queryParamsList)
+    console.dir(queryParamsList)
 
     queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, () => {
         // Upon completion of task loop, go back to run

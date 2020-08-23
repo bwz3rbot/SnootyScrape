@@ -31,12 +31,15 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
     console.log('getting page ' + count + '...')
 
     count = count + 1
+    console.log('!!making the request ... params = typeof '+ typeof params)
+    console.dir(params)
 
     axios.get(URL + type, {
             params
         })
         .then((response) => {
             console.log('indexing...')
+            console.dir(response)
 
 
 
