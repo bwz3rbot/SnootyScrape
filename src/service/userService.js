@@ -26,6 +26,8 @@ const getAllUserComments = function (username, _callback) {
         '\nplease wait....\t(this could take a while) \n')
     getUser(username).getComments().fetchAll().then(function (comments) {
 
+       
+
         totalLength = comments.length
         count = totalLength;
 
@@ -42,6 +44,7 @@ const getAllUserComments = function (username, _callback) {
         
 
         comments.forEach(comment => {
+            comment.type = 'comment'
             let newSentiment = new SentimentObject(comment, 'u/' + username);
             newSentiment.analyze();
             comment.save();
