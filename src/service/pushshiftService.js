@@ -39,7 +39,8 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
         })
         .then((response) => {
             console.log('indexing...')
-            console.dir(response)
+            
+            console.log(`response path = `+response.path)
 
 
 
