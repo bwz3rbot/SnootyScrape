@@ -26,12 +26,6 @@
 
 This bot was created for the purpose of researching the current opinion on any given topic.
 
-## 🎥 Demo / Working <a name = "demo"></a>
-
-Here is a video of it scraping and persisting data: <a href= 'https://www.youtube.com/watch?v=kq3zs70CQVU'>https://www.youtube.com/watch?v=kq3zs70CQVU</a><br>
-As you can see, there are many interesting things you could do with this!
-
-
 ## 💭 How it works <a name = "working"></a>
 
 The bot works by allowing its user to input a few paramaters which it then uses to query Pushshift data.
