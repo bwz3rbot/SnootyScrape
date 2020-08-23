@@ -75,7 +75,7 @@ What would you like to do?
 > query
 
 Input first a query param, then a value.
-When you're done, type '/go or /cancel to return to the main menu.'
+When you're done, type '/go' or '/cancel' to return to the main menu.
 
 key: >q
 value: >javascript
