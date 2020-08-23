@@ -11,6 +11,7 @@ class SentimentObject {
         this.RedditObject = RedditObject;
 
         this.type = RedditObject.type
+        this.title = RedditObject.title
 
 
         // dataset is used to define where the data is coming from 
@@ -65,6 +66,7 @@ class SentimentObject {
             sentimentDTO.saveAnalysisToDB({
                 dataset: this.dataset,
                 type: this.type,
+                title: this.title,
                 body: this.body,
                 user: this.user,
                 subreddit: this.subreddit,

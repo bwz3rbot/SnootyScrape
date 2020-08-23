@@ -9,6 +9,10 @@ const analysisSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
+    title: {
+        type: String,
+        default: ""
+    },
     body: {
         type: String,
         default: ""
@@ -76,6 +80,7 @@ const UserAnalysis = mongoose.model("User", analysisSchema)
 const saveAnalysisToDB = function ({
     type,
     dataset,
+    title,
     body,
     user,
     subreddit,
@@ -99,6 +104,7 @@ const saveAnalysisToDB = function ({
     NewAnalysis.create({
         type: type,
         body: body,
+        title: title,
         user: user,
         subreddit: subreddit,
         utc: utc,

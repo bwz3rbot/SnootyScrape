@@ -44,13 +44,13 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
 
             // For Each item in response.data.data[]
             response.data.data.forEach(item => {
-
+             
 
 
                 // Create a Reddit Object to be analyze from each item in the response
                 let RedditObject = {
                     type: type,
-
+                    title: item.title,
                     body: item.body,
                     selftext: item.selftext,
                     author: {
