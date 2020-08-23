@@ -150,15 +150,29 @@ const runPushshiftQuery = function () {
     let sizeParam;
     // Set Type Of Search
     readLine.question(typeOfSearchPrompt, (ans) => {
-        typeOfSearch = ans
+        if (ans === '' || ans === undefined || ans === null) {
+            typeOfSearch = 'comment'
+        } else {
+            typeOfSearch = ans
+        }
+
 
         // Set Pagination Amnt
         readLine.question(paginatePrompt, (ans) => {
-            paginateAmnt = ans
-
+            if (ans === '' || ans === undefined || ans === null) {
+                paginateAmnt = 0
+            } else {
+                paginateAmnt = ans
+            }
             // Set Output Name
             readLine.question(outputNamePrompt, (ans) => {
-                outputName = ans
+
+                if (ans === '' || ans === undefined || ans === null) {
+                    outputName = queryParamsList.q
+                } else {
+                    outputName = ans
+                }
+
 
                 queryParamsListToString = JSON.stringify(queryParamsList, '', 2)
                 yield = 0;
