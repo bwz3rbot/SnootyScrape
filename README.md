@@ -4,11 +4,13 @@
 </p>
 
 <h3 align="center">SnootyScrape</h3>
+<h4 align="center">Pushshift Query CLI</h4>
 
 
 ---
 
-<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists what it finds into a NoSQL DB easy catagorization and allows one to further investigate specific Reddit users thought patterns. SnootyScraper is a powerful, yet easy to use tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
+<p align="center"> 🤖 This terminal application scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a given topic. It provides an easy to use command line interface for building and persisting Pushshift requests. Build pushshift API calls and persist the results on the fly, right from the terminal. 
+Simply provide credentials to any reddit account and a url to connect to a MongoDB to run.<br>SnootyScraper is a powerful, yet easy to use tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
     <br> 
 </p>
 
