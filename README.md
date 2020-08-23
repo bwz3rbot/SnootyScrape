@@ -59,7 +59,7 @@ connection success
 MONGOOSE CONNECTION SUCCESS
 
 2020-08-23T01:22:48.989Z
-Welcome to SnootyScraper
+Welcome to SnootyScraper!
 
 | What would you like to do?
 
@@ -76,18 +76,22 @@ please wait.... (this could take a while)
 found 21 items. indexing now...
 indexing complete!
 
-What would you like to do?
+| What would you like to do?
 
 > query
 
-Input first a query param, then a value.
-When you're done, type '/go or /cancel to return to the main menu.'
+| Input first a query param, then a value.
+| When you're done, type '/go' or '/cancel' to return to the main menu.
 
-key: >q
-value: >javascript
-key: >size
-value: >100
-key: >/go
+key: > q
+
+value: > javascript
+
+key: > size
+
+value: > 100
+
+key: > /go
 
 { q: 'javascript', size: '100' }
 
@@ -108,10 +112,10 @@ pagination amount:
 |   "q": "javascript",
 |   "size": "100"
 | }
-| type of search:comment
+| type of search: comment
 | paginate amount: 1
 | output name: MyCollection
-| your search could yeild up to 200 results.Is this correct?:
+| your search could yeild up to 200 results.Is this correct?
 
 (y/n) > y
 
@@ -121,19 +125,6 @@ pagination amount:
 | getting page 2...
 | indexing...
 
-| What would you like to do now?
-
-> user
-
-| Which user?
-
-> SnootyScraper
-
-| Fetching all comments from u/SnootyScraper
-| please wait.... (this could take a while)
-
-| found 21 items. indexing now...
-| indexing complete!
 | What would you like to do?
 
 > exit

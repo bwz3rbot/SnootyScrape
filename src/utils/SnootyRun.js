@@ -21,7 +21,7 @@ class Snooty {
 
         let current_datetime = new Date()
         console.log(current_datetime)
-        console.log("Welcome to SnootyScraper")
+        console.log("Welcome to SnootyScraper!")
 
 
 
@@ -62,7 +62,7 @@ const run = function (newMessage) {
 //// 1.
 ////// Set Query Params
 let initialQueryMsg = `Input first a query param, then a value.
-\nWhen you're done, type '/go or /cancel to return to the main menu.'\nkey: > `
+\nWhen you're done, type '/go' or '/cancel' to return to the main menu.\nkey: > `
 let queryMessage = initialQueryMsg;
 const queryParams = function (msg) {
 
@@ -186,11 +186,11 @@ const runPushshiftQuery = function () {
                 // Validate user input
                 validationPrompt =
                     'query params: \n' + queryParamsListToString +
-                    '\n | type of search:' + typeOfSearch +
+                    '\n | type of search: ' + typeOfSearch +
                     '\n | paginate amount: ' + paginateAmnt +
                     '\n | output name: ' + outputName +
                     `\n your search could yeild up to ${yield} results.` +
-                    'Is this correct?: \n' +
+                    'Is this correct?\n' +
                     '\n(y/n) > '
                 readLine.question(validationPrompt, (ans) => {
 
