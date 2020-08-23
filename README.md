@@ -34,7 +34,7 @@ It takes the data it gathers from Pushshift and Reddit, then - through the magic
 
 This data is persisted to a NoSQL DB for easy catagorization, analyzation, and reuse.
 
-SnootyScraper also has the ability to scour a specific user's entire comment history to give some extra clarity to the results, and also to provide more valuable insight into your client-base.
+SnootyScraper also has the ability to scour a specific user's entire comment history to bring clarity to the results.
 
 
 ## 🎈 Usage <a name = "usage"></a>
