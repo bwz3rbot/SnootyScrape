@@ -8,7 +8,7 @@
 
 ---
 
-<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists what it finds to a database for later research, and allows one to further investigate specific Reddit users thought patterns. SnootyScraper is a great tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
+<p align="center"> 🤖 This bot scrapes Reddit and Pushshift to gather data on users <em>sentiment</em> on a specific topic. It persists what it finds into a NoSQL DB easy catagorization and allows one to further investigate specific Reddit users thought patterns. SnootyScraper is a powerful, yet easy to use tool for analyzing mass amounts of targeted data, and making important business decisions reguarding your current market!
     <br> 
 </p>
 
@@ -24,7 +24,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-This bot was created for the purpose of researching the current opinion on a given topic.
+This bot was created for the purpose of researching the current opinion on any given topic.
 
 ## 🎥 Demo / Working <a name = "demo"></a>
 
@@ -36,51 +36,127 @@ As you can see, there are many interesting things you could do with this!
 
 The bot works by allowing its user to input a few paramaters which it then uses to query Pushshift data.
 
-It takes the data it finds from pushshift, then - through the magic of Sentiment Analysis Technology - it spits back out data reguarding users opinions on a topic.
+It takes the data it gathers from Pushshift and Reddit, then - through the magic of Sentiment Analysis Technology - returns data reguarding users opinions on a topic.
 
 This data is persisted to a NoSQL DB for easy catagorization, analyzation, and reuse.
 
-SnootyScraper also has the ability to scour a specific user's entire comment history to gain valuable insight into your market.
+SnootyScraper also has the ability to scour a specific user's entire comment history to give some extra clarity to the results, and also to provide more valuable insight into your client-base.
 
 
 ## 🎈 Usage <a name = "usage"></a>
 
-SnootyScraper is incredibly easy to use. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters you wish to include in the search and let it do its' thing.
+SnootyScraper is incredibly easy to use and understand. Simply give it your credentials in the pw.env file and run. Input any valid pushshift paramaters you wish to include in the search and let it do its' thing.
 
-You can then view your database and organize how you wish.
+You can then view your database and organize it as you wish.
 
-If you find a person of interest, you can query their entire history of comments and analyze their data further.
+If you find a person of interest, you can query their entire history of comments and analyze the data further.
 
 ### Example:
 ```
-let params = {
-    q: 'Elvis',
-    size: 5,
-    subreddit: 'askreddit'
-}
 
-const TYPE = {
-    COMMENT: 'comment',
-    SUBMISSION: 'submission'
+CONNECTING MONGOOSE
+connection success
+MONGOOSE CONNECTION SUCCESS
 
-}
+2020-08-23T01:22:48.989Z
+Welcome to SnootyScraper
 
-const COLLECTION_NAME = "10ResultsAboutElvis"
+| What would you like to do?
 
-Services.pushshift.get({params}, TYPE.COMMENT, 1, COLLECTION_NAME)
+> user
+
+| Which user?
+
+> SnootyScraper
+
+| Fetching all comments from u/SnootyScraper
+
+please wait.... (this could take a while) 
+
+found 21 items. indexing now...
+indexing complete!
+
+What would you like to do?
+
+> query
+
+Input first a query param, then a value.
+When you're done, type '/go or /cancel to return to the main menu.'
+
+key: >q
+value: >javascript
+key: >size
+value: >100
+key: >/go
+
+{ q: 'javascript', size: '100' }
+
+| type of search (comment OR submission):
+
+> comment
+
+pagination amount:
+
+> 1
+
+| db output name:
+
+> MyCollection
+
+| query params:
+| {
+|   "q": "javascript",
+|   "size": "100"
+| }
+| type of search:comment
+| paginate amount: 1
+| output name: MyCollection
+| your search could yeild up to 200 results.Is this correct?:
+
+(y/n) > y
+
+| WORKING...
+| getting page 1...
+| indexing...
+| getting page 2...
+| indexing...
+
+| What would you like to do now?
+
+> user
+
+| Which user?
+
+> SnootyScraper
+
+| Fetching all comments from u/SnootyScraper
+| please wait.... (this could take a while)
+
+| found 21 items. indexing now...
+| indexing complete!
+| What would you like to do?
+
+> exit
+
+| Thanks for choosing SnootyScraper! Goobye!
 ```
 
 **Result:**
 
-Invoking this function will query pushshift comment data with your chosen params and will paginate 1 single time, producing 10 results - or 2 pages containing 5 results each.
+Running these commands will make a targeted request to Pushshift.
+You can find more information on how to form your requests here:(https://buildmedia.readthedocs.org/media/pdf/reddit-api/beta/reddit-api.pdf)
 
-It will then funnel your data through Sentiment and then persist it to the DB for you to do with what you please.
+It will then funnel your data through Sentiment(https://www.npmjs.com/package/sentiment) and persist it to the DB for you to do with what you please.
 
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
 
 First thing's first. You could use your current account for this, but I reccomend that you create a fresh account for the bot.
+
+```
+As writing this, there is no current need to authenticate, other than to simply start the bot without any errors. However, there will be features added in the future that allow a user to send modmail or do some other things that will require authentication.
+```
 
 Once the account is created and you are logged in, visit this url(https://www.reddit.com/prefs/apps/) and create a script app. Here is where you will find the values needed to authenticate the bot.
 

@@ -34,7 +34,7 @@ class Snooty {
 
 /////////////RUN APP\\\\\\\\\\\\\\\\\
 // Run App -- Prompts user input from console
-let promptMessage = 'What would you like to do?\n>'
+let promptMessage = 'What would you like to do?\n > '
 const run = function (newMessage) {
 
     if (newMessage) {
@@ -62,7 +62,7 @@ const run = function (newMessage) {
 //// 1.
 ////// Set Query Params
 let initialQueryMsg = `Input first a query param, then a value.
-\nWhen you're done, type '/go or /cancel to return to the main menu.'\nkey: >`
+\nWhen you're done, type '/go or /cancel to return to the main menu.'\nkey: > `
 let queryMessage = initialQueryMsg;
 const queryParams = function (msg) {
 
@@ -103,10 +103,10 @@ const includeInParams = function (ans) {
         // Push keys and values to respective arrays
         if (count % 2) {
             queryParamKeys.push(ans)
-            msg = `value: >`
+            msg = `value: > `
         } else {
             queryParamValues.push(ans)
-            msg = `key: >`
+            msg = `key: > `
         }
 
 
@@ -142,9 +142,9 @@ const runPushshiftQuery = function () {
 
 
     // Query user for outputName, paginateAmnt, and typeOfSearch
-    let typeOfSearchPrompt = 'type of search (comment OR submission):\n>'
-    let paginatePrompt = 'pagination amount:\n>'
-    let outputNamePrompt = 'db output name:\n>'
+    let typeOfSearchPrompt = 'type of search (comment OR submission):\n > '
+    let paginatePrompt = 'pagination amount:\n > '
+    let outputNamePrompt = 'db output name:\n > '
     let validationPrompt;
     let yield;
     let sizeParam;
@@ -158,17 +158,18 @@ const runPushshiftQuery = function () {
 
 
         // Set Pagination Amnt
-        readLine.question(paginatePrompt, (ans) => {
+        readLine.question('\t'+typeOfSearch+'\n'+paginatePrompt, (ans) => {
             if (ans === '' || ans === undefined || ans === null) {
                 paginateAmnt = 0
             } else {
                 paginateAmnt = ans
             }
             // Set Output Name
-            readLine.question(outputNamePrompt, (ans) => {
+            readLine.question('\t'+paginateAmnt+'\n'+outputNamePrompt, (ans) => {
 
                 if (ans === '' || ans === undefined || ans === null) {
                     outputName = queryParamsList.q
+                    console.log('\t'+outputName)
                 } else {
                     outputName = ans
                 }
@@ -194,12 +195,12 @@ const runPushshiftQuery = function () {
                 readLine.question(validationPrompt, (ans) => {
 
                     // if user types 'y' or 'yes', send get request
-                    if (ans === 'y' || ans === 'yes') {
+                    if (ans === 'y' || ans === 'yes' || (ans === '' || ans === undefined || ans === null)) {
                         completeQuery()
 
                         // if user types 'n' or 'no', cancel the query and reset values
                     } else if (ans === 'n') {
-                        cancelQuery('Search Complete! What would you like to do now?\n>')
+                        cancelQuery('Search Complete! What would you like to do now?\n > ')
                     }
                 })
             })
@@ -237,8 +238,8 @@ const cancelQuery = function (msg) {
     if (msg) {
         newMessage = msg;
     }
-    newMessage = `Search cancelled. What would you like to do now?\n>`
-    run(newMessage);
+    console.log('Search cancelled!')
+    run('What would you like to do next?\n > ');
 }
 
 //
@@ -276,7 +277,7 @@ const mapKeyValuesToObject = function (keys, values) {
 ////// Get User History
 const user = function () {
 
-    readLine.question('Which user?\n>', (ans) => {
+    readLine.question('Which user?\n > ', (ans) => {
         userService.getAllUserComments(ans, function () {
             // After complete, back to run()
             run();
@@ -299,7 +300,7 @@ const help = function () {
     \n - user - generate report on a specific user
     \n - exit - exits the program\n`)
 
-    newMsg = 'What would you like to do?\n>'
+    newMsg = 'What would you like to do?\n > '
     run(newMsg)
 
 }
