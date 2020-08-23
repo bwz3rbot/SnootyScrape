@@ -167,7 +167,7 @@ Now remove 'EXAMPLE' from the end of the file name.
 Now that you'ved filled in your account details, you just need to run this command to install the nececary dependencies.
 
 ```
-npm i --save axios dotenv mongoose sentiment snoostorm snoowrap
+npm install
 ```
 
 This will take a couple minutes to complete.
