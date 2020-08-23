@@ -5,6 +5,10 @@ const {
 const mongoose = require('../config/db-config').mongoose
 
 const analysisSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        default: ""
+    },
     body: {
         type: String,
         default: ""
@@ -70,6 +74,7 @@ const UserAnalysis = mongoose.model("User", analysisSchema)
 
 
 const saveAnalysisToDB = function ({
+    type,
     dataset,
     body,
     user,
@@ -88,11 +93,11 @@ const saveAnalysisToDB = function ({
     _callback
 }) {
 
-    console.log('creating a new analysis object')
     const NewAnalysis = mongoose.model(dataset + "_listing", analysisSchema)
 
 
     NewAnalysis.create({
+        type: type,
         body: body,
         user: user,
         subreddit: subreddit,
@@ -114,7 +119,6 @@ const saveAnalysisToDB = function ({
     })
 
 
-    console.log('saving analysis to db.... should be hitting the callback here. not before.')
     if (_callback) {
         _callback()
     }
@@ -126,49 +130,7 @@ const saveAnalysisToDB = function ({
 
 }
 
-// const saveUserAnalysisToDB = function ({
-//     body,
-//     user,
-//     subreddit,
-//     utc,
-//     comment_id,
-//     parent_id,
-//     score,
-//     comparative,
-//     calculation,
-//     tokens,
-//     words,
-//     positive,
-//     negative,
-//     _callback
-// }) {
 
-
-//     UserAnalysis.create({
-//         body: body,
-//         user: user,
-//         subreddit: subreddit,
-//         utc: utc,
-//         comment_id: comment_id,
-//         parent_id: parent_id,
-//         score: score,
-//         comparative: comparative,
-//         calculation: calculation,
-//         tokens: tokens,
-//         words: words,
-//         positive: positive,
-//         negative: negative
-//     }, function (err) {
-//         if (err) console.log(err)
-//         else console.log('saved to db!')
-//     })
-
-//     // Return to CLI after complete
-//     if (_callback) {
-//         _callback();
-
-//     }
-// }
 
 module.exports = {
 

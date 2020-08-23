@@ -6,19 +6,23 @@ const readLine = require('readline').createInterface({
     output: process.stdout
 })
 
-// Pushshift Service
+// Pushshift Query Service
 const queryPushShift = require('../service/pushshiftService').get
 
+// User Query Service
+const userService = require('../service/userService')
 
 //Snooty Class creates a wrapper for SnootyRun
 class Snooty {
 
     // Constructor -- calls run()
     constructor() {
-        console.log('constructing')
 
-        let formatted_date = 'get time later'
-        console.log('**************************************\n' + " || Welcome to SnootyScraper! --> " + formatted_date)
+
+        let current_datetime = new Date()
+        console.log(current_datetime)
+        console.log("Welcome to SnootyScraper")
+
 
 
         // Query user input
@@ -28,9 +32,14 @@ class Snooty {
 }
 
 
+/////////////RUN APP\\\\\\\\\\\\\\\\\
 // Run App -- Prompts user input from console
 let promptMessage = 'What would you like to do?\n>'
-const run = function () {
+const run = function (newMessage) {
+
+    if (newMessage) {
+        promptMessage = newMessage
+    }
 
 
 
@@ -38,19 +47,23 @@ const run = function () {
     // Options: help, query, exit, (error)
     readLine.question(promptMessage, ans => {
 
-        ans === 'help' ? help(ans) : ans === 'query' ? queryParams() : ans === 'exit' ? exit() : error(ans)
+        ans === 'help' ? help(ans) : ans === 'query' ? queryParams() : ans === 'user' ? user() : ans === 'exit' ? exit() : ans === 'cat' ? leCatMe() : error(ans)
 
 
 
     })
 
 }
+//////////////////////////
 
 
 
-// 
-// Set Query Params
-let queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
+//
+//// 1.
+////// Set Query Params
+let initialQueryMsg = `Input first a query param, then a value.
+\nWhen you're done, type '/go or /cancel to return to the main menu.'\nkey: >`
+let queryMessage = initialQueryMsg;
 const queryParams = function (msg) {
 
 
@@ -61,15 +74,18 @@ const queryParams = function (msg) {
 
     // includeInParams() > runPushshiftQuery()
     readLine.question(queryMessage, ans => {
-        ans != 'go' ? includeInParams(ans) : runPushshiftQuery()
+        ans != '/go' ? includeInParams(ans) : runPushshiftQuery()
     })
 
+
+
+    ////// Call includeInParams() until user types '/go'
 }
 
 
-
-
-// IncludeInParams -- pushes user input to corresponding arrays, and updates the queryMessage
+//
+//// 1.a
+////// IncludeInParams
 let queryParamKeys = []
 let queryParamValues = []
 let count = 1;
@@ -77,7 +93,7 @@ let msg = '';
 const includeInParams = function (ans) {
 
     // [Oops] command resets query
-    if (ans === 'cancel') {
+    if (ans === '/cancel') {
         cancelQuery()
     } else {
 
@@ -87,10 +103,10 @@ const includeInParams = function (ans) {
         // Push keys and values to respective arrays
         if (count % 2) {
             queryParamKeys.push(ans)
-            msg = `enter a value:\n>`
+            msg = `value: >`
         } else {
             queryParamValues.push(ans)
-            msg = `enter another key or type go to get search results\n>`
+            msg = `key: >`
         }
 
 
@@ -98,14 +114,15 @@ const includeInParams = function (ans) {
         // Alternate between push() > key/value upon each iteration
         count = count + 1
 
-        // Get the next key or value
+        // Get the next key or value with the correct message
         queryParams(msg)
     }
 
 }
 
-
-// Pushshift Service access
+//
+//// 2.
+//////// Run Pushshift Query
 let queryParamsList = {}
 let outputName;
 let paginateAmnt;
@@ -113,27 +130,24 @@ let typeOfSearch;
 const runPushshiftQuery = function () {
 
 
+
     // Map query params from seperate arrays to singular object
     queryParamsList = mapKeyValuesToObject(queryParamKeys, queryParamValues)
-    console.log('after mapping key values to objects ...\nqueryParamsList = ')
-    console.dir(queryParamsList)
     if (queryParamsList.size === null || queryParamsList.size === undefined) {
-        console.log('queryParamsList was null.. setting to 25')
-        console.dir(queryParamsList)
-
+        console.log('size param was null.. defaulting to to 25')
         queryParamsList.size = 25
-
-        console.dir(queryParamsList)
     }
 
+    console.dir(queryParamsList)
 
 
-    // Query STDIN for outputName, paginateAmnt, and typeOfSearch
-
-    let typeOfSearchPrompt = 'type of search:\n>'
+    // Query user for outputName, paginateAmnt, and typeOfSearch
+    let typeOfSearchPrompt = 'type of search (comment OR submission):\n>'
     let paginatePrompt = 'pagination amount:\n>'
     let outputNamePrompt = 'db output name:\n>'
-
+    let validationPrompt;
+    let yield;
+    let sizeParam;
     // Set Type Of Search
     readLine.question(typeOfSearchPrompt, (ans) => {
         typeOfSearch = ans
@@ -146,109 +160,77 @@ const runPushshiftQuery = function () {
             readLine.question(outputNamePrompt, (ans) => {
                 outputName = ans
 
-                // Send Get Request to pushshift, then (when ready) callback returnToPrompt
-                completeQuery()
+                queryParamsListToString = JSON.stringify(queryParamsList, '', 2)
+                yield = 0;
+                sizeParam = parseInt(queryParamsList.size)
+                paginateNum = parseInt(paginateAmnt) + 1
 
+                yield = (sizeParam) * (paginateNum)
+
+
+                // Validate user input
+                validationPrompt =
+                    'query params: \n' + queryParamsListToString +
+                    '\n | type of search:' + typeOfSearch +
+                    '\n | paginate amount: ' + paginateAmnt +
+                    '\n | output name: ' + outputName +
+                    `\n your search could yeild up to ${yield} results.` +
+                    'Is this correct?: \n' +
+                    '\n(y/n) > '
+                readLine.question(validationPrompt, (ans) => {
+
+                    // if user types 'y' or 'yes', send get request
+                    if (ans === 'y' || ans === 'yes') {
+                        completeQuery()
+
+                        // if user types 'n' or 'no', cancel the query and reset values
+                    } else if (ans === 'n') {
+                        cancelQuery('Search Complete! What would you like to do now?\n>')
+                    }
+                })
             })
-
-
         })
-
     })
-
 }
 
 
-
-
-// helps the returnToPrompt callback decide when to run
-let totalNumberItems
-class Ready {
-
-    // Total Number of Items
-    setTotalNumberItems() {
-        console.log('setting total number of items...')
-
-        console.log('queryParamsList.size = ' + queryParamsList.size)
-        console.log('paginateAmnt = ' + paginateAmnt)
-
-
-        // Multiply queryParams[size] * paginationAmnt to get total number of items to be indexed
-        totalNumberItems =
-            parseInt(queryParamsList.size) * (parseInt(paginateAmnt) + 1)
-        console.log('total number of items to be indexed: ' + totalNumberItems)
-    }
-
-    checkIfReady() {
-        checkIfReady(totalNumberItems)
-    }
-
-}
-
-let checkIfReady = function (totalNumberItems) {
-    return returnToPrompt(totalNumberItems)
-}
-
-
-// Helps the Ready class know when to return true
-let itemCount = totalNumberItems;
-let countDownItems = function (totalNumberItems) {
-    console.log('CHECKING IF READY!\n COUNT = ' + totalNumberItems)
-
-
-
-    if (itemCount < 0) {
-        // Decrement count each pass
-        console.log('ON ITEM: ' + itemCount)
-        itemCount = itemCount - 1
-    }
-
-    if (itemCount === 0) {
-        console.log('!LAST ITEM!')
-
-
-    }
-}
-// Callback (ran from within sentimentDTO)
-const returnToPrompt = function (totalNumberItems) {
-
-    // Checks the ready class for if the size of remaining search is = 0
-    if (countDownItems(totalNumberItems)) {
-        run()
-    }
-
-
-}
-
-
-// Sends complete request to pushshift
+//
+//// 2.b
+////// Complete Query
 const completeQuery = function () {
 
-    // THEN Send request to Pushshift with params and options
-    Ready.prototype.setTotalNumberItems();
-    queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, ()=> {
-        //THEN
+    queryPushShift(queryParamsList, typeOfSearch, paginateAmnt, outputName, () => {
+        // Upon completion of task loop, go back to run
         run()
     })
 
-    queryMessage = `Input a query param, then a value. When you're done, type 'go'\n>`
+    queryMessage = initialQueryMsg
 
 }
 
 
 
-// Called from queryParams>includeInParams when user types 'cancel'
-const cancelQuery = function () {
-    console.log('canceling')
+//
+//// 1.b
+////// Called from queryParams>includeInParams when user types '/cancel'
+let newMessage;
+const cancelQuery = function (msg) {
+    console.log('canceling...')
+
+    // Clears query params and count
+    //(count: for alternating between pushing keys and values into arrays)
     clearObjects()
-    queryMessage = `Search cancelled. What would you like to do now?\n>`
-
-    run();
+    if (msg) {
+        newMessage = msg;
+    }
+    newMessage = `Search cancelled. What would you like to do now?\n>`
+    run(newMessage);
 }
 
-// Clear Objects -- refreshes all temporary objects used to create a new search
+//
+//// 1.c
+////// Clear Objects -- refreshes all temporary objects used to create a new request
 const clearObjects = function () {
-    console.log('clearing objects')
     queryParamKeys = []
     queryParamValues = []
     queryParamsList = new Array
@@ -256,8 +238,9 @@ const clearObjects = function () {
 
 }
 
-
-// Map Key Values to Object
+//
+//// 2.a
+////// Map Key Values to Object
 const mapKeyValuesToObject = function (keys, values) {
 
 
@@ -274,19 +257,36 @@ const mapKeyValuesToObject = function (keys, values) {
 
 
 
+//
+//// 3.
+////// Get User History
+const user = function () {
+
+    readLine.question('Which user?\n>', (ans) => {
+        userService.getAllUserComments(ans, function () {
+            // After complete, back to run()
+            run();
+        })
+
+    })
+
+}
+
+
 
 // Help -- Displays list of commands
 const help = function () {
     console.log(
 
-        `\**********_SnootyHelp_**********
-    \nThanks for choosing SnootyScraper!
-    \nHere is a list of options you can choose from:
-    \nhelp - displays this menu
-    \nquery - query pushshift data
-    \nexit - exits the program\n`)
+        `\n ___________________Help___________________
+        \nHere is a list of options you can choose from:
+    \n - help - display a list of available options
+    \n - query - form and send a pushshift request
+    \n - user - generate report on a specific user
+    \n - exit - exits the program\n`)
 
-    run()
+    newMsg = 'What would you like to do?\n>'
+    run(newMsg)
 
 }
 
@@ -303,8 +303,24 @@ const exit = function () {
 
 // Handle Errors
 const error = function (input) {
-    console.log("'" + input + "' is not a valid input! please try again!\n")
+
+
+    msg =
+        "\n'" + input + "' is not a valid input! please try again! \n" +
+        `or try typing 'help' for a list of commands\n>`
+
+
+
+    run(msg);
+}
+
+
+let catMe = require('cat-me')
+const leCatMe = function () {
+
+    console.log(catMe())
     run();
+
 }
 
 

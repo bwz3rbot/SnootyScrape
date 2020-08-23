@@ -156,7 +156,7 @@ const saveUserToDB = function (
     id,
     _callback) {
 
-    console.log("SAVING USER TO DB")
+
 
     User.create({
         name: name,
@@ -191,7 +191,7 @@ const saveUserToDB = function (
         if (err) {
             console.log(err);
         } else {
-            console.log(`user created, ${obj}`)
+
         }
     })
 

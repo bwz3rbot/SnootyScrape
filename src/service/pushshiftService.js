@@ -28,7 +28,7 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
     // (maybe need to set a way of making count back to one when finished working)
 
     if (count === 1) console.log('WORKING...')
-    console.log(' || pass: ' + count)
+    console.log('getting page ' + count + '...')
 
     count = count + 1
 
@@ -36,6 +36,7 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
             params
         })
         .then((response) => {
+            console.log('indexing...')
 
 
 
@@ -45,9 +46,13 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
             response.data.data.forEach(item => {
 
 
+
                 // Create a Reddit Object to be analyze from each item in the response
                 let RedditObject = {
+                    type: type,
+
                     body: item.body,
+                    selftext: item.selftext,
                     author: {
                         name: item.author
                     },
@@ -62,8 +67,6 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
                 }
 
 
-                // Check the contents
-                console.dir(RedditObject)
 
                 // Create a new SentimentObject to evaluate the RedditObject
                 let newSentiment = new SentimentObject(RedditObject, dataset);
@@ -71,15 +74,6 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
                 // Analyze and persist the data
                 newSentiment.analyze()
 
-
-
-                // if (_callback) {
-                //     // Count down until run(CLI)
-                //     console.log('calling back!')
-                //     _callback();
-                // } else {
-                //     console.log('no callback available')
-                // }
 
             })
             let length = response.data.data.length - 1;
@@ -91,7 +85,7 @@ const get = (params, type, pagesLeft, dataset, _callback) => {
 
             } else {
                 if (_callback) {
-                    _callback();
+                    _callback('Indexing Complete! What would you like to do next?\n>');
                     count = 1;
                 }
 
