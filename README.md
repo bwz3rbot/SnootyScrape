@@ -43,7 +43,7 @@ SnootyScraper is incredibly easy to use and understand. Simply give it your cred
 
 You can then view your database and organize it as you wish.
 
-If you find a person of interest, you can query their entire history of comments and analyze the data further.
+If you find a person of interest, you can query their entire history to analyze further.
 
 ### Example:
 ```
